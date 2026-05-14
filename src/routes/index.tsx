@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Play, Sparkles, Star, Users, Award, Palette, Film, Wand2, Mail, Instagram, Linkedin, Youtube, ArrowRight } from "lucide-react";
+import { Play, Sparkles, Star, Users, Award, Palette, Film, Wand2, Mail, Instagram, Linkedin, Youtube, ArrowRight, ArrowUpRight, Plane, Zap, Inbox, Wrench } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/")({
@@ -14,115 +14,184 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const videos = [
-  { id: "placeholder1", title: "Brand Commercial — Aurora", category: "Commercials", glow: "glow-border-orange" },
-  { id: "placeholder2", title: "Travel Vlog — Northern Lights", category: "Vlogs", glow: "glow-border-blue" },
-  { id: "placeholder3", title: "Short-form Reel — City Pulse", category: "Short-form", glow: "glow-border-green" },
-  { id: "placeholder4", title: "Documentary — The Maker", category: "Commercials", glow: "glow-border-orange" },
-  { id: "placeholder5", title: "YouTube Cut — Tech Review", category: "Vlogs", glow: "glow-border-blue" },
-  { id: "placeholder6", title: "TikTok Series — Fast Cuts", category: "Short-form", glow: "glow-border-green" },
-];
-
-const services = [
-  { icon: Film, title: "Dynamic Storytelling", desc: "Crafting a narrative that keeps viewers engaged from the first frame to the last." },
-  { icon: Palette, title: "Professional Color Grading", desc: "Enhancing the visual mood of every frame with cinematic color science." },
-  { icon: Wand2, title: "Seamless Transitions & Sound Design", desc: "A polished, high-end feel for every project — motion, rhythm, and audio in sync." },
-];
-
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground antialiased">
-      <Nav />
+    <div className="min-h-screen bg-background text-foreground antialiased overflow-x-hidden">
       <Hero />
       <Stats />
       <Portfolio />
       <Services />
+      <Process />
       <Contact />
       <Footer />
     </div>
   );
 }
 
-function Nav() {
-  return (
-    <header className="fixed top-0 inset-x-0 z-50 flex justify-center pt-5 px-4">
-      <nav className="glass rounded-full px-6 py-3 flex items-center gap-8 max-w-4xl w-full">
-        <a href="#top" className="flex items-center gap-2 font-display font-bold">
-          <span className="size-7 rounded-lg bg-[image:var(--gradient-primary)] grid place-items-center">
-            <Play className="size-3.5 fill-white text-white" />
-          </span>
-          <span>Shoaib<span className="text-primary">.</span></span>
-        </a>
-        <ul className="hidden md:flex items-center gap-6 text-sm text-muted-foreground ml-auto">
-          <li><a href="#work" className="hover:text-foreground transition">Work</a></li>
-          <li><a href="#stats" className="hover:text-foreground transition">About</a></li>
-          <li><a href="#services" className="hover:text-foreground transition">Services</a></li>
-          <li><a href="#contact" className="hover:text-foreground transition">Contact</a></li>
-        </ul>
-        <a href="#contact" className="ml-auto md:ml-0 rounded-full px-4 py-2 text-sm font-medium bg-[image:var(--gradient-primary)] text-primary-foreground shadow-[var(--shadow-glow-blue)] hover:opacity-90 transition">
-          Let's Talk
-        </a>
-      </nav>
-    </header>
-  );
-}
-
+/* ============== HERO ============== */
 function Hero() {
   return (
-    <section id="top" className="relative pt-40 pb-24 overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-      <div className="absolute inset-0 mesh-bg pointer-events-none" />
-      <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
+    <section id="top" className="relative pb-24 pt-6 px-3 md:px-5">
+      {/* Giant outlined background wordmark */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center overflow-hidden select-none">
+        <h1
+          className="font-grotesk font-bold text-[18vw] leading-none tracking-tight whitespace-nowrap pt-4"
+          style={{
+            color: "transparent",
+            WebkitTextStroke: "1px oklch(0.5 0.05 265 / 0.35)",
+          }}
+        >
+          RECCUT
+        </h1>
+      </div>
 
-      <div className="relative max-w-6xl mx-auto px-6 text-center">
-        <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs text-muted-foreground mb-8">
-          <Sparkles className="size-3.5 text-primary" />
-          Available for new projects · Q2 2026
+      <div className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden mt-24 md:mt-32" style={{ background: "var(--gradient-hero)" }}>
+        <div className="absolute inset-0 stripes opacity-100" />
+        <div className="absolute inset-0" style={{
+          background: "radial-gradient(70% 60% at 50% 110%, oklch(0.95 0.03 250 / 0.95) 0%, transparent 55%)"
+        }} />
+
+        {/* Top nav */}
+        <div className="relative z-10 flex items-center justify-between gap-3 px-5 md:px-8 pt-6">
+          <a href="#top" className="flex items-center gap-2 font-grotesk font-semibold text-white">
+            <span className="size-7 rounded-md bg-white/15 grid place-items-center backdrop-blur">
+              <Play className="size-3.5 fill-white text-white" />
+            </span>
+            Shoaib<span className="opacity-60 -ml-1">.studio</span>
+          </a>
+          <ul className="hidden md:flex items-center gap-7 text-sm text-white/85">
+            <li><a href="#top" className="hover:text-white">Home</a></li>
+            <li><a href="#work" className="hover:text-white">Work</a></li>
+            <li><a href="#services" className="hover:text-white">Services</a></li>
+            <li><a href="#process" className="hover:text-white">Process</a></li>
+            <li><a href="#contact" className="hover:text-white">FAQ</a></li>
+          </ul>
+          <div className="flex items-center gap-2">
+            <a href="#contact" className="hidden sm:inline text-sm text-white/85 hover:text-white px-3">Log In</a>
+            <a href="#contact" className="rounded-full bg-white text-[oklch(0.32_0.22_268)] hover:bg-white/90 px-5 py-2.5 text-sm font-medium shadow-[0_10px_30px_-10px_oklch(1_0_0_/_0.4)]">
+              Contact Me
+            </a>
+          </div>
         </div>
 
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95]">
-          <span className="text-gradient">Shoaib Hassan:</span>
-          <br />
-          Narrative-Driven
-          <br />
-          <span className="italic font-light text-muted-foreground">Video Editing.</span>
-        </h1>
+        {/* Hero copy */}
+        <div className="relative z-10 px-6 pt-16 md:pt-24 pb-8 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full bg-black/30 backdrop-blur px-4 py-1.5 text-xs text-white/90 border border-white/10">
+            Crafting Stories With <span className="text-[oklch(0.85_0.15_268)] font-medium">Reccut Solutions</span>
+          </div>
+          <h2 className="mt-6 font-display text-white text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.95]">
+            Shoaib Hassan: Narrative
+            <br />
+            Driven Video Editing
+            <span className="inline-flex align-middle gap-1 ml-3">
+              <Film className="inline size-9 md:size-12 text-white/80" />
+              <Play className="inline size-8 md:size-11 fill-white/90 text-white/90" />
+            </span>
+          </h2>
+          <p className="mt-6 max-w-xl mx-auto text-white/80 text-sm md:text-base">
+            Co-Founder at Reccut Solutions · 3+ years of experience in crafting cinematic stories that move audiences and brands.
+          </p>
 
-        <p className="mt-8 max-w-2xl mx-auto text-lg text-muted-foreground">
-          Co-Founder at <span className="text-foreground font-medium">Reccut Solutions</span> · 3+ years of experience in crafting cinematic stories that move audiences and brands.
-        </p>
-
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <a href="#work" className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-medium bg-[image:var(--gradient-primary)] text-primary-foreground shadow-[var(--shadow-glow-blue)] hover:scale-[1.02] transition">
-            View My Work
-            <ArrowRight className="size-4 group-hover:translate-x-0.5 transition" />
-          </a>
-          <a href="#contact" className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-medium glass hover:bg-white/10 transition">
-            Let's Collaborate
-          </a>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <a href="#work" className="pill-btn bg-[image:var(--gradient-primary)] text-white shadow-[var(--shadow-glow-blue)] hover:scale-[1.02]">
+              View My Work <ArrowRight className="size-4" />
+            </a>
+            <a href="#contact" className="pill-btn bg-white/10 backdrop-blur border border-white/20 text-white hover:bg-white/15">
+              Let's Collaborate
+            </a>
+          </div>
         </div>
 
         {/* Floating preview cards */}
-        <div className="relative mt-20 hidden md:block h-64">
-          <div className="absolute left-0 top-4 glass rounded-2xl p-4 w-56 text-left rotate-[-6deg] glow-border-orange">
-            <div className="text-xs text-muted-foreground">Color Grade</div>
-            <div className="mt-1 font-display text-2xl">Cinematic LUT</div>
-            <div className="mt-3 h-2 rounded-full bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500" />
-          </div>
-          <div className="absolute left-1/2 -translate-x-1/2 top-0 glass rounded-2xl p-5 w-72 text-left glow-border-blue">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <span className="size-2 rounded-full bg-primary animate-pulse" /> Now Editing
+        <div className="relative z-10 px-4 md:px-8 pb-20 mt-8">
+          <div className="relative max-w-5xl mx-auto h-[420px] md:h-[440px]">
+            {/* Left card */}
+            <div className="absolute left-0 top-8 w-[260px] md:w-[280px] rounded-2xl bg-white text-[oklch(0.18_0.07_265)] p-5 shadow-2xl rotate-[-3deg]">
+              <div className="text-xs font-medium text-[oklch(0.45_0.05_265)]">Reels Edited</div>
+              <div className="text-xs text-[oklch(0.55_0.04_265)]">Last Update</div>
+              <div className="mt-2 flex items-end justify-between">
+                <div className="font-grotesk text-4xl font-bold">1,320</div>
+                <span className="rounded-full bg-[oklch(0.62_0.24_268)] text-white text-[10px] px-2 py-0.5">▸ Live</span>
+              </div>
+              <div className="text-[11px] text-[oklch(0.55_0.04_265)] mt-1">Cuts Delivered</div>
+              <div className="mt-4 flex items-center justify-between rounded-xl bg-[oklch(0.96_0.01_265)] p-3">
+                <div className="flex items-center gap-2">
+                  <div className="size-7 rounded-md bg-[oklch(0.62_0.24_268)] grid place-items-center">
+                    <Sparkles className="size-3.5 text-white" />
+                  </div>
+                  <div className="text-[11px] leading-tight">
+                    <div className="font-medium">Next Project</div>
+                    <div className="text-[oklch(0.55_0.04_265)]">Brand film · Sept</div>
+                  </div>
+                </div>
+                <div className="size-7 rounded-full bg-white grid place-items-center shadow">
+                  <ArrowRight className="size-3.5" />
+                </div>
+              </div>
             </div>
-            <div className="mt-2 font-display text-xl">Reccut · Brand Film</div>
-            <div className="mt-3 flex gap-1.5">
-              {[...Array(24)].map((_, i) => (
-                <div key={i} className="w-1 rounded-full bg-primary/60" style={{ height: `${10 + Math.abs(Math.sin(i)) * 30}px` }} />
-              ))}
+
+            {/* Center "smart search" card */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[300px] md:w-[340px] rounded-[2rem] bg-white text-[oklch(0.18_0.07_265)] p-6 shadow-2xl">
+              <div className="mx-auto inline-flex w-full items-center justify-center gap-2 rounded-full bg-[oklch(0.96_0.01_265)] px-4 py-1.5 text-xs">
+                Editor's Live Timeline
+              </div>
+              <div className="mt-5 text-center">
+                <div className="font-grotesk text-2xl font-semibold">
+                  Editing <span className="text-[oklch(0.62_0.24_268)]">200+</span>
+                </div>
+                <div className="font-grotesk text-2xl font-semibold">Clips Per Project</div>
+              </div>
+              <div className="mt-5 flex items-center gap-3">
+                <div className="relative size-14 shrink-0">
+                  <svg viewBox="0 0 36 36" className="size-14 -rotate-90">
+                    <circle cx="18" cy="18" r="15" fill="none" stroke="oklch(0.94 0.01 265)" strokeWidth="3" />
+                    <circle cx="18" cy="18" r="15" fill="none" stroke="oklch(0.62 0.24 268)" strokeWidth="3" strokeDasharray="94" strokeLinecap="round" />
+                  </svg>
+                  <div className="absolute inset-0 grid place-items-center text-xs font-semibold">94%</div>
+                </div>
+                <div className="text-[11px] text-[oklch(0.45_0.05_265)] leading-snug">
+                  Average client satisfaction across delivered cuts last quarter ⚡
+                </div>
+              </div>
+              <div className="mt-4 rounded-xl overflow-hidden aspect-video bg-gradient-to-br from-[oklch(0.7_0.15_240)] to-[oklch(0.4_0.2_268)] relative">
+                <div className="absolute inset-0 grid place-items-center">
+                  <div className="size-12 rounded-full bg-white/90 grid place-items-center">
+                    <Play className="size-5 fill-[oklch(0.32_0.22_268)] text-[oklch(0.32_0.22_268)] ml-0.5" />
+                  </div>
+                </div>
+                <div className="absolute bottom-2 right-2 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-medium flex items-center gap-1">
+                  <span className="size-1.5 rounded-full bg-[oklch(0.62_0.24_268)]" />
+                  90% Replay Rate
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="absolute right-0 top-6 glass rounded-2xl p-4 w-56 text-left rotate-[6deg] glow-border-green">
-            <div className="text-xs text-muted-foreground">Render Status</div>
-            <div className="mt-1 font-display text-2xl">4K · 60fps</div>
-            <div className="mt-3 text-xs text-[oklch(0.78_0.18_150)]">Export complete ✓</div>
+
+            {/* Right card — glassy */}
+            <div className="absolute right-0 top-12 w-[250px] md:w-[280px] rounded-2xl glass-dark p-5 text-white rotate-[3deg]">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[10px]">
+                <span className="size-1.5 rounded-full bg-[oklch(0.78_0.18_150)]" /> Latest Project
+              </span>
+              <div className="mt-2 text-xs text-white/70">Just Wrapped</div>
+              <div className="mt-1 font-grotesk text-2xl font-bold leading-tight">
+                Brand Film<br />
+                <span className="text-white/90">→ Aurora Co.</span>
+              </div>
+              <div className="mt-2 text-[11px] text-white/70">
+                Saved <span className="text-white font-medium">28%</span> turnaround time
+              </div>
+              <div className="mt-4 dotted-orbit h-12 rounded-lg opacity-50" />
+              <div className="mt-3 size-8 rounded-full bg-white grid place-items-center">
+                <ArrowRight className="size-4 text-[oklch(0.32_0.22_268)]" />
+              </div>
+            </div>
+
+            {/* Tags */}
+            <span className="absolute -left-2 md:left-6 bottom-2 -rotate-12 rounded-full bg-white text-[oklch(0.18_0.07_265)] px-4 py-1.5 text-xs font-medium shadow-lg">
+              CINEMATIC
+            </span>
+            <span className="absolute -right-2 md:right-6 bottom-4 rotate-6 rounded-full bg-white text-[oklch(0.18_0.07_265)] px-4 py-1.5 text-xs font-medium shadow-lg">
+              STORY-FIRST
+            </span>
           </div>
         </div>
       </div>
@@ -130,23 +199,25 @@ function Hero() {
   );
 }
 
+/* ============== STATS ============== */
 function Stats() {
   const items = [
     { icon: Award, value: "3+", label: "Years of Professional Experience" },
     { icon: Users, value: "10+", label: "Global Clients Served" },
     { icon: Star, value: "4.8/5", label: "Average Rating for Excellence" },
+    { icon: Plane, value: "120+", label: "Projects Delivered Worldwide" },
   ];
   return (
-    <section id="stats" className="relative py-16 px-6">
-      <div className="max-w-6xl mx-auto glass rounded-3xl px-8 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-white/5">
+    <section className="px-3 md:px-5 -mt-12 relative z-20">
+      <div className="max-w-6xl mx-auto rounded-2xl bg-white text-[oklch(0.18_0.07_265)] shadow-[0_30px_80px_-30px_oklch(0.13_0.04_265_/_0.3)] grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[oklch(0.92_0.01_265)] overflow-hidden">
         {items.map((it) => (
-          <div key={it.label} className="flex items-center gap-5 px-2 pt-6 md:pt-0 first:pt-0">
-            <div className="size-12 shrink-0 rounded-xl glass grid place-items-center">
-              <it.icon className="size-5 text-primary" />
+          <div key={it.label} className="p-6 md:p-7 flex items-center gap-4">
+            <div className="size-11 rounded-xl bg-[oklch(0.96_0.02_268)] grid place-items-center">
+              <it.icon className="size-5 text-[oklch(0.62_0.24_268)]" />
             </div>
             <div>
-              <div className="font-display text-3xl font-semibold">{it.value}</div>
-              <div className="text-sm text-muted-foreground">{it.label}</div>
+              <div className="font-grotesk text-2xl md:text-3xl font-bold leading-none">{it.value}</div>
+              <div className="text-xs text-[oklch(0.5_0.04_265)] mt-1.5 leading-snug">{it.label}</div>
             </div>
           </div>
         ))}
@@ -155,30 +226,43 @@ function Stats() {
   );
 }
 
+/* ============== PORTFOLIO ============== */
+const videos = [
+  { id: "placeholder1", title: "Aurora — Brand Commercial", category: "Commercials", glow: "glow-card-orange", tag: "COMMERCIAL" },
+  { id: "placeholder2", title: "Northern Lights — Travel Vlog", category: "Vlogs", glow: "glow-card-blue", tag: "VLOG" },
+  { id: "placeholder3", title: "City Pulse — Short-form Reel", category: "Short-form", glow: "glow-card-green", tag: "SHORT-FORM" },
+  { id: "placeholder4", title: "The Maker — Documentary", category: "Commercials", glow: "glow-card-orange", tag: "DOC" },
+  { id: "placeholder5", title: "Tech Review — YouTube Cut", category: "Vlogs", glow: "glow-card-blue", tag: "YOUTUBE" },
+  { id: "placeholder6", title: "Fast Cuts — TikTok Series", category: "Short-form", glow: "glow-card-green", tag: "TIKTOK" },
+];
+
 function Portfolio() {
   const [filter, setFilter] = useState<string>("All");
   const cats = ["All", "Commercials", "Vlogs", "Short-form"];
   const filtered = filter === "All" ? videos : videos.filter((v) => v.category === filter);
 
   return (
-    <section id="work" className="relative py-24 px-6">
+    <section id="work" className="relative py-28 px-6 grid-bg [mask-image:radial-gradient(ellipse_at_center,black,transparent_85%)]">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-          <div>
-            <div className="inline-flex items-center gap-2 glass rounded-full px-3 py-1 text-xs text-muted-foreground mb-4">
-              <span className="size-1.5 rounded-full bg-primary" /> Selected Work
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold max-w-2xl">
-              Stories that <span className="text-gradient">cut deep,</span> frames that linger.
-            </h2>
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 mb-5">
+            <span className="size-1.5 rounded-full bg-[oklch(0.78_0.18_150)]" /> Selected Work
           </div>
-          <div className="flex flex-wrap gap-2">
+          <h2 className="font-display text-4xl md:text-6xl text-white leading-tight">
+            Stories that cut deep,<br />
+            <span className="italic text-white/60">frames that linger.</span>
+          </h2>
+          <p className="mt-5 text-white/60">
+            From brand films to short-form reels — colour-coded by craft.
+          </p>
+
+          <div className="mt-8 inline-flex flex-wrap gap-1.5 rounded-full p-1.5 bg-white/5 border border-white/10">
             {cats.map((c) => (
               <button
                 key={c}
                 onClick={() => setFilter(c)}
                 className={`rounded-full px-4 py-2 text-sm transition ${
-                  filter === c ? "bg-[image:var(--gradient-primary)] text-primary-foreground" : "glass text-muted-foreground hover:text-foreground"
+                  filter === c ? "bg-white text-[oklch(0.18_0.07_265)]" : "text-white/70 hover:text-white"
                 }`}
               >
                 {c}
@@ -189,20 +273,27 @@ function Portfolio() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((v) => (
-            <article key={v.id} className={`glass rounded-2xl overflow-hidden ${v.glow} group`}>
-              <div className="aspect-video bg-black relative">
-                <iframe
-                  className="absolute inset-0 w-full h-full"
-                  src={`https://www.youtube.com/embed/${v.id}`}
-                  title={v.title}
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+            <article key={v.id} className={`rounded-3xl p-2.5 ${v.glow} group transition hover:-translate-y-1 duration-300`}>
+              <div className="rounded-2xl overflow-hidden bg-black/60">
+                <div className="aspect-video relative">
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src={`https://www.youtube.com/embed/${v.id}`}
+                    title={v.title}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
               </div>
-              <div className="p-5">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">{v.category}</div>
-                <h3 className="font-display text-lg font-semibold group-hover:text-primary transition">{v.title}</h3>
+              <div className="px-3 pt-4 pb-3 flex items-start justify-between gap-3">
+                <div>
+                  <div className="text-[10px] tracking-[0.18em] text-white/50">{v.tag}</div>
+                  <h3 className="font-grotesk text-base font-semibold mt-1 text-white">{v.title}</h3>
+                </div>
+                <div className="size-8 rounded-full bg-white/10 grid place-items-center group-hover:bg-white group-hover:text-[oklch(0.18_0.07_265)] transition">
+                  <ArrowUpRight className="size-4" />
+                </div>
               </div>
             </article>
           ))}
@@ -212,65 +303,177 @@ function Portfolio() {
   );
 }
 
+/* ============== SERVICES (light section like AirLume features) ============== */
 function Services() {
+  const items = [
+    {
+      icon: Film,
+      title: "Dynamic Storytelling",
+      desc: "Crafting a narrative that keeps viewers engaged — pacing, rhythm, and emotion engineered into every cut.",
+      featured: true,
+    },
+    { icon: Palette, title: "Professional Color Grading", desc: "Cinematic color science that enhances the visual mood of every frame." },
+    { icon: Wand2, title: "Seamless Transitions", desc: "Polished, high-end transitions that feel invisible and intentional." },
+    { icon: Zap, title: "Sound Design & Mix", desc: "Layered audio, foley, and music that elevate the picture." },
+    { icon: Sparkles, title: "Motion & Title Design", desc: "Custom kinetic typography and graphics that match the brand voice." },
+    { icon: Inbox, title: "End-to-End Delivery", desc: "From rushes to final master — colour-correct, captioned, format-ready." },
+    { icon: Wrench, title: "Edit System Setup", desc: "Project organisation, proxies, and pipelines that scale with your team." },
+    { icon: Award, title: "Creative Direction", desc: "Story consultancy & treatment-building before a single clip is cut." },
+  ];
+
   return (
-    <section id="services" className="relative py-24 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 glass rounded-full px-3 py-1 text-xs text-muted-foreground mb-4">
+    <section id="services" className="relative py-28 px-6" style={{ background: "var(--cloud)", color: "var(--ink)" }}>
+      {/* Curved top */}
+      <div className="absolute -top-px inset-x-0 h-12 pointer-events-none" style={{
+        background: "radial-gradient(60% 100% at 50% 0%, var(--cloud) 0%, transparent 70%)"
+      }} />
+
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 rounded-full bg-[oklch(0.93_0.04_268)] text-[oklch(0.4_0.18_268)] px-3 py-1 text-xs font-medium mb-5">
             Expertise & Services
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold max-w-3xl mx-auto">
-            Every project, <span className="text-gradient">end-to-end polished.</span>
+          <h2 className="font-display text-4xl md:text-6xl leading-tight">
+            Cinematic Craft, End-to-End<br />Polished With Reccut
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            From the first cut to the final render, every decision serves the story.
+          <p className="mt-4 text-[oklch(0.45_0.04_265)] max-w-xl mx-auto">
+            Every project, from the first cut to the final render — every decision serves the story.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {services.map((s) => (
-            <div key={s.title} className="rounded-2xl bg-white text-[oklch(0.18_0.04_265)] p-7 hover:-translate-y-1 transition shadow-xl">
-              <div className="size-12 rounded-xl bg-[oklch(0.96_0.01_265)] grid place-items-center mb-6">
-                <s.icon className="size-5 text-[oklch(0.5_0.2_265)]" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {items.map((s) => {
+            const isFeatured = s.featured;
+            return (
+              <div
+                key={s.title}
+                className={`rounded-2xl p-6 transition hover:-translate-y-1 ${
+                  isFeatured
+                    ? "bg-[oklch(0.32_0.22_268)] text-white shadow-[0_30px_60px_-25px_oklch(0.32_0.22_268_/_0.55)]"
+                    : "bg-white shadow-[0_20px_40px_-25px_oklch(0.13_0.04_265_/_0.2)]"
+                }`}
+              >
+                <div className={`size-11 rounded-xl grid place-items-center mb-6 ${
+                  isFeatured ? "bg-white/15" : "bg-[oklch(0.96_0.02_268)]"
+                }`}>
+                  <s.icon className={`size-5 ${isFeatured ? "text-white" : "text-[oklch(0.62_0.24_268)]"}`} />
+                </div>
+                <h3 className="font-grotesk text-lg font-semibold leading-snug">{s.title}</h3>
+                <p className={`mt-2 text-sm leading-relaxed ${isFeatured ? "text-white/80" : "text-[oklch(0.5_0.04_265)]"}`}>
+                  {s.desc}
+                </p>
+                <a href="#contact" className={`mt-6 inline-flex items-center gap-1.5 text-sm font-medium ${
+                  isFeatured ? "text-white" : "text-[oklch(0.62_0.24_268)]"
+                }`}>
+                  Learn more <ArrowRight className="size-3.5" />
+                </a>
               </div>
-              <h3 className="font-display text-xl font-semibold mb-2">{s.title}</h3>
-              <p className="text-sm text-[oklch(0.45_0.03_265)]">{s.desc}</p>
-              <div className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[oklch(0.5_0.2_265)]">
-                Learn more <ArrowRight className="size-4" />
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
-function Contact() {
+/* ============== PROCESS — dark glow cards ============== */
+function Process() {
   return (
-    <section id="contact" className="relative py-24 px-6">
-      <div className="max-w-3xl mx-auto glass rounded-3xl p-10 md:p-14 text-center mesh-bg">
-        <h2 className="text-4xl md:text-5xl font-bold">
-          Let's craft something <span className="text-gradient">unforgettable.</span>
-        </h2>
-        <p className="mt-4 text-muted-foreground">
-          Got a brand film, YouTube series, or short-form campaign in mind? I'd love to hear about it.
-        </p>
+    <section id="process" className="relative py-28 px-6 bg-background grid-bg [mask-image:radial-gradient(ellipse_at_center,black,transparent_85%)]">
+      <div className="max-w-7xl mx-auto">
+        <div className="max-w-2xl mb-16">
+          <h2 className="font-display text-4xl md:text-6xl text-white leading-tight">
+            How I Keep You Ahead<sup className="text-2xl text-white/40">®</sup>
+          </h2>
+          <p className="mt-4 text-white/70 max-w-md">
+            From quick turnaround edits to deep narrative builds — every advantage in the visual revolution.
+          </p>
+          <p className="mt-6 text-white/50 text-sm">Here's how I deliver on that promise, every project.</p>
+        </div>
 
-        <form className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-3 text-left" onSubmit={(e) => e.preventDefault()}>
-          <input type="text" placeholder="Your name" className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-primary transition" />
-          <input type="email" placeholder="Email address" className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-primary transition" />
-          <textarea placeholder="Tell me about your project…" rows={4} className="md:col-span-2 rounded-xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-primary transition resize-none" />
-          <button type="submit" className="md:col-span-2 inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-medium bg-[image:var(--gradient-primary)] text-primary-foreground shadow-[var(--shadow-glow-blue)] hover:scale-[1.01] transition">
-            <Mail className="size-4" /> Send Message
-          </button>
-        </form>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <article className="glow-card-orange rounded-[1.75rem] p-7 min-h-[320px] flex flex-col">
+            <div className="size-11 rounded-xl bg-[oklch(0.72_0.2_50)] grid place-items-center mb-12">
+              <Inbox className="size-5 text-white" />
+            </div>
+            <h3 className="font-display text-3xl text-white">Daily Rough Cuts</h3>
+            <p className="mt-3 text-white/70 text-sm max-w-xs">
+              Your shortcut to staying ahead — a fresh edit on your desk every morning.
+            </p>
+            <a href="#contact" className="mt-6 inline-flex items-center gap-2 text-white text-sm font-medium">
+              Get Daily Briefs <ArrowRight className="size-4" />
+            </a>
+          </article>
+
+          <article className="glow-card-blue rounded-[1.75rem] p-7 min-h-[320px] flex flex-col">
+            <div className="size-11 rounded-xl bg-[oklch(0.62_0.24_268)] grid place-items-center mb-12">
+              <Wrench className="size-5 text-white" />
+            </div>
+            <h3 className="font-display text-3xl text-white">Curated Pipeline</h3>
+            <p className="mt-3 text-white/70 text-sm max-w-xs">
+              The most refined editing tools and workflows — tested and tuned for your project.
+            </p>
+            <a href="#contact" className="mt-6 inline-flex items-center gap-2 text-white text-sm font-medium">
+              See My Stack <ArrowRight className="size-4" />
+            </a>
+          </article>
+
+          <article className="glow-card-green rounded-[1.75rem] p-7 min-h-[320px] flex flex-col">
+            <div className="size-11 rounded-xl bg-[oklch(0.72_0.2_150)] grid place-items-center mb-12">
+              <Sparkles className="size-5 text-white" />
+            </div>
+            <h3 className="font-display text-3xl text-white">Expert Narrative</h3>
+            <p className="mt-3 text-white/70 text-sm max-w-xs">
+              Actionable story analysis from years cutting brand films, vlogs, and short-form.
+            </p>
+            <a href="#contact" className="mt-6 inline-flex items-center gap-2 text-white text-sm font-medium">
+              Unlock Insights <ArrowRight className="size-4" />
+            </a>
+          </article>
+        </div>
+
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-white/60">
+          <span className="inline-flex items-center gap-2"><Zap className="size-4" /> Always Current</span>
+          <span className="opacity-30">|</span>
+          <span className="inline-flex items-center gap-2"><Award className="size-4" /> Focused For You</span>
+          <span className="opacity-30">|</span>
+          <span className="inline-flex items-center gap-2"><Sparkles className="size-4" /> Actionable Steps</span>
+        </div>
       </div>
     </section>
   );
 }
 
+/* ============== CONTACT ============== */
+function Contact() {
+  return (
+    <section id="contact" className="relative py-24 px-6">
+      <div className="max-w-3xl mx-auto rounded-[2rem] overflow-hidden relative" style={{ background: "var(--gradient-hero)" }}>
+        <div className="absolute inset-0 stripes" />
+        <div className="relative p-10 md:p-14 text-center text-white">
+          <h2 className="font-display text-4xl md:text-5xl">
+            Let's craft something<br />
+            <span className="italic text-white/80">unforgettable.</span>
+          </h2>
+          <p className="mt-4 text-white/75">
+            Brand film, YouTube series, or short-form campaign? I'd love to hear about it.
+          </p>
+
+          <form className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-3 text-left" onSubmit={(e) => e.preventDefault()}>
+            <input type="text" placeholder="Your name" className="rounded-xl bg-white/10 border border-white/20 px-4 py-3 outline-none focus:border-white text-white placeholder:text-white/50 transition" />
+            <input type="email" placeholder="Email address" className="rounded-xl bg-white/10 border border-white/20 px-4 py-3 outline-none focus:border-white text-white placeholder:text-white/50 transition" />
+            <textarea placeholder="Tell me about your project…" rows={4} className="md:col-span-2 rounded-xl bg-white/10 border border-white/20 px-4 py-3 outline-none focus:border-white text-white placeholder:text-white/50 transition resize-none" />
+            <button type="submit" className="md:col-span-2 inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-medium bg-white text-[oklch(0.32_0.22_268)] hover:bg-white/95 transition">
+              <Mail className="size-4" /> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============== FOOTER ============== */
 function Footer() {
   return (
     <footer className="relative px-6 pb-12 pt-8">
@@ -280,18 +483,18 @@ function Footer() {
             <Play className="size-4 fill-white text-white" />
           </div>
           <div>
-            <div className="font-display font-semibold">Reccut Solutions</div>
-            <div className="text-xs text-muted-foreground">Cinematic editing studio</div>
+            <div className="font-grotesk font-semibold text-white">Reccut Solutions</div>
+            <div className="text-xs text-white/50">Cinematic editing studio</div>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <a href="#" aria-label="YouTube" className="size-10 rounded-full glass grid place-items-center hover:text-primary transition"><Youtube className="size-4" /></a>
-          <a href="#" aria-label="Instagram" className="size-10 rounded-full glass grid place-items-center hover:text-primary transition"><Instagram className="size-4" /></a>
-          <a href="#" aria-label="LinkedIn" className="size-10 rounded-full glass grid place-items-center hover:text-primary transition"><Linkedin className="size-4" /></a>
+          <a href="#" aria-label="YouTube" className="size-10 rounded-full glass grid place-items-center text-white hover:text-[oklch(0.78_0.2_268)] transition"><Youtube className="size-4" /></a>
+          <a href="#" aria-label="Instagram" className="size-10 rounded-full glass grid place-items-center text-white hover:text-[oklch(0.78_0.2_268)] transition"><Instagram className="size-4" /></a>
+          <a href="#" aria-label="LinkedIn" className="size-10 rounded-full glass grid place-items-center text-white hover:text-[oklch(0.78_0.2_268)] transition"><Linkedin className="size-4" /></a>
         </div>
 
-        <div className="text-xs text-muted-foreground">© 2026 Shoaib Hassan. All rights reserved.</div>
+        <div className="text-xs text-white/50">© 2026 Shoaib Hassan · Reccut Solutions</div>
       </div>
     </footer>
   );
