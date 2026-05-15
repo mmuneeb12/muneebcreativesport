@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Play, Sparkles, Star, Users, Award, Palette, Film, Wand2, Mail, Instagram, Linkedin, Youtube, ArrowRight, ArrowUpRight, Plane, Zap, Inbox, Wrench, Clock, ShieldCheck, MessagesSquare, Layers, Scissors, Video, FileText } from "lucide-react";
-import { useState } from "react";
+import { Play, Sparkles, Star, Users, Award, Film, Mail, Instagram, Linkedin, Youtube, ArrowRight, ArrowUpRight, Plane, Zap, Inbox, Wrench, Clock, ShieldCheck, MessagesSquare, Layers, Scissors, Video, FileText, X, Quote } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -239,9 +239,21 @@ const videos: VideoItem[] = [
 
 function Portfolio() {
   const [filter, setFilter] = useState<string>("All");
+  const [active, setActive] = useState<VideoItem | null>(null);
   const cats = ["All", "Long Form", "Short Form", "Saas Ads", "Plays"];
   const filtered = filter === "All" ? videos : videos.filter((v) => v.category === filter);
   const showComingSoon = filter === "Short Form";
+
+  useEffect(() => {
+    if (!active) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setActive(null);
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [active]);
 
   return (
     <section id="work" className="relative py-28 px-6 grid-bg [mask-image:radial-gradient(ellipse_at_center,black,transparent_85%)]">
@@ -287,36 +299,94 @@ function Portfolio() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((v, i) => (
               <article key={`${v.id}-${i}`} className={`rounded-3xl p-2.5 ${v.glow} group transition hover:-translate-y-1 duration-300`}>
-                <div className="rounded-2xl overflow-hidden bg-black/60">
-                  <div className="aspect-video relative">
-                    <iframe
-                      className="absolute inset-0 w-full h-full"
-                      src={`https://www.youtube.com/embed/${v.id}`}
-                      title={v.title}
-                      loading="lazy"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
+                <button
+                  type="button"
+                  onClick={() => setActive(v)}
+                  className="w-full block rounded-2xl overflow-hidden bg-black/60 relative aspect-video cursor-pointer"
+                  aria-label={`Play ${v.title}`}
+                >
+                  <img
+                    src={`https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`}
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`; }}
+                    alt={v.title}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                  <div className="absolute inset-0 grid place-items-center">
+                    <div className="size-16 rounded-full bg-white/95 grid place-items-center shadow-2xl transition group-hover:scale-110">
+                      <Play className="size-6 fill-[oklch(0.18_0.07_265)] text-[oklch(0.18_0.07_265)] ml-1" />
+                    </div>
                   </div>
-                </div>
+                </button>
                 <div className="px-3 pt-4 pb-3 flex items-start justify-between gap-3">
                   <div>
                     <div className="text-[10px] tracking-[0.18em] text-white/50">{v.tag}</div>
                     <h3 className="font-grotesk text-base font-semibold mt-1 text-white">{v.title}</h3>
                   </div>
-                  <a
-                    href={`https://youtu.be/${v.id}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="size-8 rounded-full bg-white/10 grid place-items-center group-hover:bg-white group-hover:text-[oklch(0.18_0.07_265)] transition"
+                  <button
+                    onClick={() => setActive(v)}
+                    className="size-8 rounded-full bg-white/10 grid place-items-center group-hover:bg-white group-hover:text-[oklch(0.18_0.07_265)] transition cursor-pointer"
+                    aria-label="Open preview"
                   >
                     <ArrowUpRight className="size-4" />
-                  </a>
+                  </button>
                 </div>
               </article>
             ))}
           </div>
         )}
+      </div>
+
+      {/* Lightbox */}
+      <div
+        className={`fixed inset-0 z-[80] grid place-items-center p-4 md:p-10 transition-all duration-300 ${
+          active ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setActive(null)}
+      >
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+        <div
+          className={`relative w-full max-w-6xl transition-all duration-500 ${active ? "scale-100 translate-y-0" : "scale-95 translate-y-4"}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={() => setActive(null)}
+            className="absolute -top-12 right-0 size-10 rounded-full glass grid place-items-center text-white hover:bg-white/20 cursor-pointer"
+            aria-label="Close"
+          >
+            <X className="size-5" />
+          </button>
+          <div className={`rounded-3xl overflow-hidden ${active?.glow ?? ""}`}>
+            <div className="aspect-video bg-black">
+              {active && (
+                <iframe
+                  className="w-full h-full"
+                  src={`https://www.youtube.com/embed/${active.id}?autoplay=1&rel=0&modestbranding=1`}
+                  title={active.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
+            </div>
+            {active && (
+              <div className="p-5 md:p-6 flex items-center justify-between gap-4 bg-black/40 backdrop-blur">
+                <div>
+                  <div className="text-[10px] tracking-[0.18em] text-white/50">{active.tag}</div>
+                  <h3 className="font-display text-2xl md:text-3xl text-white mt-1">{active.title}</h3>
+                </div>
+                <a
+                  href={`https://youtu.be/${active.id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="pill-btn bg-white text-[oklch(0.32_0.22_268)] hover:bg-white/90 text-sm"
+                >
+                  Open on YouTube <ArrowUpRight className="size-4" />
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -459,8 +529,18 @@ function Testimonials() {
     },
   ];
 
+  // Imperfect, scattered placements (top%, left%, rotate deg, glow class)
+  const placements = [
+    { top: "6%",  left: "6%",  rot: -8,  glow: "glow-card-orange" },
+    { top: "10%", left: "58%", rot: 6,   glow: "glow-card-blue" },
+    { top: "52%", left: "20%", rot: 4,   glow: "glow-card-green" },
+    { top: "48%", left: "62%", rot: -5,  glow: "glow-card-blue" },
+  ];
+
+  const [active, setActive] = useState<number | null>(null);
+
   return (
-    <section id="testimonials" className="relative py-28 px-6 bg-background">
+    <section id="testimonials" className="relative py-28 px-6 bg-background overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 mb-5">
@@ -470,31 +550,69 @@ function Testimonials() {
             Words from the<br />
             <span className="italic text-white/60">creators I've worked with.</span>
           </h2>
+          <p className="mt-4 text-white/50 text-sm">Tap any card to focus it.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {reviews.map((r) => (
-            <article key={r.name} className="rounded-2xl glass-dark p-6 hover:-translate-y-1 transition">
-              <div className="flex items-center gap-4">
-                <div className="size-12 rounded-full bg-[image:var(--gradient-primary)] grid place-items-center font-grotesk text-white font-bold text-lg">
-                  {r.name.charAt(0)}
+        <div className="relative mx-auto h-[640px] md:h-[560px] max-w-5xl">
+          {/* Backdrop blur when active */}
+          <div
+            onClick={() => setActive(null)}
+            className={`absolute inset-0 rounded-[2rem] transition-all duration-500 ${
+              active !== null ? "bg-black/40 backdrop-blur-sm opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+          />
+
+          {reviews.map((r, i) => {
+            const p = placements[i];
+            const isActive = active === i;
+            const isDimmed = active !== null && !isActive;
+
+            const baseStyle: React.CSSProperties = {
+              top: p.top,
+              left: p.left,
+              transform: `rotate(${p.rot}deg)`,
+            };
+            const activeStyle: React.CSSProperties = {
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%) rotate(0deg) scale(1.05)",
+              zIndex: 50,
+            };
+
+            return (
+              <article
+                key={r.name}
+                onClick={() => setActive(isActive ? null : i)}
+                style={isActive ? activeStyle : baseStyle}
+                className={`absolute w-[300px] md:w-[340px] cursor-pointer rounded-2xl ${p.glow} p-6 will-change-transform
+                  transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]
+                  ${isDimmed ? "opacity-40 blur-[2px] scale-95" : "opacity-100"}
+                  hover:-translate-y-1`}
+              >
+                <Quote className="size-6 text-white/40 absolute top-4 right-5" />
+                <div className="flex items-center gap-3">
+                  <div className="size-12 rounded-full bg-[image:var(--gradient-primary)] grid place-items-center font-grotesk text-white font-bold text-lg shrink-0">
+                    {r.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-grotesk font-semibold text-white">{r.name}</div>
+                    <div className="text-xs text-white/60">{r.role}</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-grotesk font-semibold text-white">{r.name}</div>
-                  <div className="text-xs text-white/60">{r.role}</div>
+                <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-4">
+                  <span className="text-white font-grotesk font-semibold text-sm">{r.rating.toFixed(1)}</span>
+                  <div className="flex">
+                    {Array.from({ length: 5 }).map((_, k) => (
+                      <Star key={k} className="size-3.5 fill-[oklch(0.85_0.18_85)] text-[oklch(0.85_0.18_85)]" />
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-4">
-                <span className="text-white font-grotesk font-semibold text-sm">{r.rating.toFixed(1)}</span>
-                <div className="flex">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="size-3.5 fill-[oklch(0.85_0.18_85)] text-[oklch(0.85_0.18_85)]" />
-                  ))}
-                </div>
-              </div>
-              <p className="mt-3 text-sm text-white/75 leading-relaxed">{r.text}</p>
-            </article>
-          ))}
+                <p className={`mt-3 text-sm text-white/80 leading-relaxed transition-all duration-500 ${
+                  isActive ? "line-clamp-none" : "line-clamp-3"
+                }`}>{r.text}</p>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -636,6 +754,28 @@ function Policies() {
 
 /* ============== FOOTER ============== */
 function Footer() {
+  const [openTerms, setOpenTerms] = useState(false);
+
+  useEffect(() => {
+    if (!openTerms) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpenTerms(false);
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [openTerms]);
+
+  const terms = [
+    { title: "Revisions Policy", body: "Each project includes up to 3 rounds of revisions. Additional rounds can be added at a flat per-round rate agreed upon before work begins." },
+    { title: "Payment Terms", body: "50% upfront to lock the slot, 50% on final delivery. Long-term retainers are billed monthly in advance." },
+    { title: "Turnaround", body: "Short-form: 48–72h. Long-form & SaaS ads: 5–10 working days depending on scope. Rush delivery available on request." },
+    { title: "Ownership & Usage", body: "Full commercial rights transfer to the client upon final payment. I retain the right to feature work in my portfolio unless an NDA states otherwise." },
+    { title: "Confidentiality", body: "All raw footage, scripts, and brand assets are handled under strict confidentiality. NDAs are honoured and signed on request." },
+    { title: "Cancellation", body: "Projects cancelled after work has begun are billed pro-rata for time and resources already committed." },
+  ];
+
   return (
     <footer className="relative px-6 pb-12 pt-8">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 border-t border-white/5 pt-8">
@@ -644,8 +784,8 @@ function Footer() {
             <Play className="size-4 fill-white text-white" />
           </div>
           <div>
-            <div className="font-grotesk font-semibold text-white">Reccut Solutions</div>
-            <div className="text-xs text-white/50">Cinematic editing studio</div>
+            <div className="font-grotesk font-semibold text-white">Muneeb</div>
+            <div className="text-xs text-white/50">Cinematic editing · Reccut Solutions</div>
           </div>
         </div>
 
@@ -655,7 +795,56 @@ function Footer() {
           <a href="#" aria-label="LinkedIn" className="size-10 rounded-full glass grid place-items-center text-white hover:text-[oklch(0.78_0.2_268)] transition"><Linkedin className="size-4" /></a>
         </div>
 
-        <div className="text-xs text-white/50">© 2026 Muneeb · Reccut Solutions</div>
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={() => setOpenTerms(true)}
+            className="text-xs text-white/70 hover:text-white underline-offset-4 hover:underline cursor-pointer"
+          >
+            Terms & Conditions
+          </button>
+          <div className="text-xs text-white/50">© 2026 Muneeb</div>
+        </div>
+      </div>
+
+      {/* Terms popup */}
+      <div
+        className={`fixed inset-0 z-[90] grid place-items-center p-4 md:p-8 transition-all duration-300 ${
+          openTerms ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setOpenTerms(false)}
+      >
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className={`relative w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl glass-dark p-8 md:p-10 text-white transition-all duration-500 ${
+            openTerms ? "scale-100 translate-y-0" : "scale-95 translate-y-4"
+          }`}
+        >
+          <button
+            onClick={() => setOpenTerms(false)}
+            className="absolute top-5 right-5 size-9 rounded-full bg-white/10 hover:bg-white/20 grid place-items-center cursor-pointer"
+            aria-label="Close terms"
+          >
+            <X className="size-4" />
+          </button>
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 mb-4">
+            Terms & Conditions
+          </div>
+          <h3 className="font-display text-3xl md:text-4xl leading-tight">
+            Clear terms.<br />
+            <span className="italic text-white/60">No surprises.</span>
+          </h3>
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {terms.map((t) => (
+              <div key={t.title} className="rounded-2xl bg-white/5 border border-white/10 p-5">
+                <h4 className="font-grotesk font-semibold text-white">{t.title}</h4>
+                <p className="mt-2 text-sm text-white/70 leading-relaxed">{t.body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-xs text-white/40">By engaging with Muneeb / Reccut Solutions for any project, you agree to the terms above.</p>
+        </div>
       </div>
     </footer>
   );
