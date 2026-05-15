@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Play, Sparkles, Star, Users, Award, Palette, Film, Wand2, Mail, Instagram, Linkedin, Youtube, ArrowRight, ArrowUpRight, Plane, Zap, Inbox, Wrench } from "lucide-react";
+import { Play, Sparkles, Star, Users, Award, Palette, Film, Wand2, Mail, Instagram, Linkedin, Youtube, ArrowRight, ArrowUpRight, Plane, Zap, Inbox, Wrench, Clock, ShieldCheck, MessagesSquare, Layers, Scissors, Video, FileText } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Shoaib Hassan — Narrative-Driven Video Editor" },
-      { name: "description", content: "Co-Founder at Reccut Solutions. 3+ years crafting cinematic stories through narrative-driven video editing, color grading, and sound design." },
-      { property: "og:title", content: "Shoaib Hassan — Narrative-Driven Video Editor" },
-      { property: "og:description", content: "Cinematic editing portfolio of Shoaib Hassan, Co-Founder at Reccut Solutions." },
+      { title: "Muneeb — Narrative-Driven Video Editor" },
+      { name: "description", content: "Co-Founder at Reccut Solutions. Long-form, SaaS ads, reels & motion graphics — cinematic editing that moves audiences." },
+      { property: "og:title", content: "Muneeb — Narrative-Driven Video Editor" },
+      { property: "og:description", content: "Cinematic editing portfolio of Muneeb, Co-Founder at Reccut Solutions." },
     ],
   }),
   component: Index,
@@ -21,8 +21,11 @@ function Index() {
       <Stats />
       <Portfolio />
       <Services />
+      <WhyChooseMe />
+      <Testimonials />
       <Process />
       <Contact />
+      <Policies />
       <Footer />
     </div>
   );
@@ -41,7 +44,7 @@ function Hero() {
             WebkitTextStroke: "1px oklch(0.5 0.05 265 / 0.35)",
           }}
         >
-          RECCUT
+          MOTIONS
         </h1>
       </div>
 
@@ -57,17 +60,16 @@ function Hero() {
             <span className="size-7 rounded-md bg-white/15 grid place-items-center backdrop-blur">
               <Play className="size-3.5 fill-white text-white" />
             </span>
-            Shoaib<span className="opacity-60 -ml-1">.studio</span>
+            Muneeb<span className="opacity-60 -ml-1">.studio</span>
           </a>
           <ul className="hidden md:flex items-center gap-7 text-sm text-white/85">
             <li><a href="#top" className="hover:text-white">Home</a></li>
             <li><a href="#work" className="hover:text-white">Work</a></li>
-            <li><a href="#services" className="hover:text-white">Services</a></li>
-            <li><a href="#process" className="hover:text-white">Process</a></li>
-            <li><a href="#contact" className="hover:text-white">FAQ</a></li>
+            <li><a href="#services" className="hover:text-white">Expertise</a></li>
+            <li><a href="#why" className="hover:text-white">Why Me</a></li>
+            <li><a href="#testimonials" className="hover:text-white">Reviews</a></li>
           </ul>
           <div className="flex items-center gap-2">
-            <a href="#contact" className="hidden sm:inline text-sm text-white/85 hover:text-white px-3">Log In</a>
             <a href="#contact" className="rounded-full bg-white text-[oklch(0.32_0.22_268)] hover:bg-white/90 px-5 py-2.5 text-sm font-medium shadow-[0_10px_30px_-10px_oklch(1_0_0_/_0.4)]">
               Contact Me
             </a>
@@ -80,13 +82,9 @@ function Hero() {
             Crafting Stories With <span className="text-[oklch(0.85_0.15_268)] font-medium">Reccut Solutions</span>
           </div>
           <h2 className="mt-6 font-display text-white text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.95]">
-            Shoaib Hassan: Narrative
+            Muneeb: Narrative
             <br />
             Driven Video Editing
-            <span className="inline-flex align-middle gap-1 ml-3">
-              <Film className="inline size-9 md:size-12 text-white/80" />
-              <Play className="inline size-8 md:size-11 fill-white/90 text-white/90" />
-            </span>
           </h2>
           <p className="mt-6 max-w-xl mx-auto text-white/80 text-sm md:text-base">
             Co-Founder at Reccut Solutions · 3+ years of experience in crafting cinematic stories that move audiences and brands.
@@ -121,7 +119,7 @@ function Hero() {
                   </div>
                   <div className="text-[11px] leading-tight">
                     <div className="font-medium">Next Project</div>
-                    <div className="text-[oklch(0.55_0.04_265)]">Brand film · Sept</div>
+                    <div className="text-[oklch(0.55_0.04_265)]">SaaS ad · Sept</div>
                   </div>
                 </div>
                 <div className="size-7 rounded-full bg-white grid place-items-center shadow">
@@ -130,7 +128,7 @@ function Hero() {
               </div>
             </div>
 
-            {/* Center "smart search" card */}
+            {/* Center card */}
             <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[300px] md:w-[340px] rounded-[2rem] bg-white text-[oklch(0.18_0.07_265)] p-6 shadow-2xl">
               <div className="mx-auto inline-flex w-full items-center justify-center gap-2 rounded-full bg-[oklch(0.96_0.01_265)] px-4 py-1.5 text-xs">
                 Editor's Live Timeline
@@ -173,7 +171,7 @@ function Hero() {
               </span>
               <div className="mt-2 text-xs text-white/70">Just Wrapped</div>
               <div className="mt-1 font-grotesk text-2xl font-bold leading-tight">
-                Brand Film<br />
+                SaaS Ad<br />
                 <span className="text-white/90">→ Aurora Co.</span>
               </div>
               <div className="mt-2 text-[11px] text-white/70">
@@ -204,7 +202,7 @@ function Stats() {
   const items = [
     { icon: Award, value: "3+", label: "Years of Professional Experience" },
     { icon: Users, value: "10+", label: "Global Clients Served" },
-    { icon: Star, value: "4.8/5", label: "Average Rating for Excellence" },
+    { icon: Star, value: "4.9/5", label: "Average Client Rating" },
     { icon: Plane, value: "120+", label: "Projects Delivered Worldwide" },
   ];
   return (
@@ -227,19 +225,23 @@ function Stats() {
 }
 
 /* ============== PORTFOLIO ============== */
-const videos = [
-  { id: "placeholder1", title: "Aurora — Brand Commercial", category: "Commercials", glow: "glow-card-orange", tag: "COMMERCIAL" },
-  { id: "placeholder2", title: "Northern Lights — Travel Vlog", category: "Vlogs", glow: "glow-card-blue", tag: "VLOG" },
-  { id: "placeholder3", title: "City Pulse — Short-form Reel", category: "Short-form", glow: "glow-card-green", tag: "SHORT-FORM" },
-  { id: "placeholder4", title: "The Maker — Documentary", category: "Commercials", glow: "glow-card-orange", tag: "DOC" },
-  { id: "placeholder5", title: "Tech Review — YouTube Cut", category: "Vlogs", glow: "glow-card-blue", tag: "YOUTUBE" },
-  { id: "placeholder6", title: "Fast Cuts — TikTok Series", category: "Short-form", glow: "glow-card-green", tag: "TIKTOK" },
+type VideoItem = { id: string; title: string; category: string; glow: string; tag: string };
+
+const videos: VideoItem[] = [
+  { id: "26kpqA5O_po", title: "Long-Form Feature Edit", category: "Long Form", glow: "glow-card-orange", tag: "LONG FORM" },
+  { id: "nX__5RFgf8Y", title: "Documentary Cut", category: "Long Form", glow: "glow-card-orange", tag: "LONG FORM" },
+  { id: "7W5YssgZfQc", title: "SaaS Product Ad", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD" },
+  { id: "i1zxqLZhC5c", title: "SaaS Brand Story", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD" },
+  { id: "YyhvWWGmGvw", title: "SaaS Conversion Spot", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD" },
+  { id: "HNRcWiOXD2c", title: "Play — Highlight Reel", category: "Plays", glow: "glow-card-green", tag: "PLAYS" },
+  { id: "HNRcWiOXD2c", title: "Play — Cinematic Cut", category: "Plays", glow: "glow-card-green", tag: "PLAYS" },
 ];
 
 function Portfolio() {
   const [filter, setFilter] = useState<string>("All");
-  const cats = ["All", "Commercials", "Vlogs", "Short-form"];
+  const cats = ["All", "Long Form", "Short Form", "Saas Ads", "Plays"];
   const filtered = filter === "All" ? videos : videos.filter((v) => v.category === filter);
+  const showComingSoon = filter === "Short Form";
 
   return (
     <section id="work" className="relative py-28 px-6 grid-bg [mask-image:radial-gradient(ellipse_at_center,black,transparent_85%)]">
@@ -253,7 +255,7 @@ function Portfolio() {
             <span className="italic text-white/60">frames that linger.</span>
           </h2>
           <p className="mt-5 text-white/60">
-            From brand films to short-form reels — colour-coded by craft.
+            From long-form documentaries to SaaS ads — colour-coded by craft.
           </p>
 
           <div className="mt-8 inline-flex flex-wrap gap-1.5 rounded-full p-1.5 bg-white/5 border border-white/10">
@@ -271,59 +273,72 @@ function Portfolio() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((v) => (
-            <article key={v.id} className={`rounded-3xl p-2.5 ${v.glow} group transition hover:-translate-y-1 duration-300`}>
-              <div className="rounded-2xl overflow-hidden bg-black/60">
-                <div className="aspect-video relative">
-                  <iframe
-                    className="absolute inset-0 w-full h-full"
-                    src={`https://www.youtube.com/embed/${v.id}`}
-                    title={v.title}
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+        {showComingSoon ? (
+          <div className="max-w-xl mx-auto rounded-3xl glow-card-green p-12 text-center">
+            <div className="inline-flex size-14 rounded-2xl bg-[oklch(0.72_0.2_150)] items-center justify-center mb-5">
+              <Clock className="size-6 text-white" />
+            </div>
+            <h3 className="font-display text-3xl text-white">Coming Soon</h3>
+            <p className="mt-3 text-white/70 text-sm">
+              Fresh short-form drops are in the edit bay. Check back shortly.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((v, i) => (
+              <article key={`${v.id}-${i}`} className={`rounded-3xl p-2.5 ${v.glow} group transition hover:-translate-y-1 duration-300`}>
+                <div className="rounded-2xl overflow-hidden bg-black/60">
+                  <div className="aspect-video relative">
+                    <iframe
+                      className="absolute inset-0 w-full h-full"
+                      src={`https://www.youtube.com/embed/${v.id}`}
+                      title={v.title}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="px-3 pt-4 pb-3 flex items-start justify-between gap-3">
-                <div>
-                  <div className="text-[10px] tracking-[0.18em] text-white/50">{v.tag}</div>
-                  <h3 className="font-grotesk text-base font-semibold mt-1 text-white">{v.title}</h3>
+                <div className="px-3 pt-4 pb-3 flex items-start justify-between gap-3">
+                  <div>
+                    <div className="text-[10px] tracking-[0.18em] text-white/50">{v.tag}</div>
+                    <h3 className="font-grotesk text-base font-semibold mt-1 text-white">{v.title}</h3>
+                  </div>
+                  <a
+                    href={`https://youtu.be/${v.id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="size-8 rounded-full bg-white/10 grid place-items-center group-hover:bg-white group-hover:text-[oklch(0.18_0.07_265)] transition"
+                  >
+                    <ArrowUpRight className="size-4" />
+                  </a>
                 </div>
-                <div className="size-8 rounded-full bg-white/10 grid place-items-center group-hover:bg-white group-hover:text-[oklch(0.18_0.07_265)] transition">
-                  <ArrowUpRight className="size-4" />
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+              </article>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-/* ============== SERVICES (light section like AirLume features) ============== */
+/* ============== EXPERTISE / SERVICES ============== */
 function Services() {
   const items = [
     {
       icon: Film,
-      title: "Dynamic Storytelling",
-      desc: "Crafting a narrative that keeps viewers engaged — pacing, rhythm, and emotion engineered into every cut.",
+      title: "Long Form Editing",
+      desc: "Documentaries, podcasts and feature cuts — pacing engineered to hold attention end-to-end.",
       featured: true,
     },
-    { icon: Palette, title: "Professional Color Grading", desc: "Cinematic color science that enhances the visual mood of every frame." },
-    { icon: Wand2, title: "Seamless Transitions", desc: "Polished, high-end transitions that feel invisible and intentional." },
-    { icon: Zap, title: "Sound Design & Mix", desc: "Layered audio, foley, and music that elevate the picture." },
-    { icon: Sparkles, title: "Motion & Title Design", desc: "Custom kinetic typography and graphics that match the brand voice." },
-    { icon: Inbox, title: "End-to-End Delivery", desc: "From rushes to final master — colour-correct, captioned, format-ready." },
-    { icon: Wrench, title: "Edit System Setup", desc: "Project organisation, proxies, and pipelines that scale with your team." },
-    { icon: Award, title: "Creative Direction", desc: "Story consultancy & treatment-building before a single clip is cut." },
+    { icon: Video, title: "Reel Editing", desc: "Snappy, scroll-stopping reels with rhythm-locked cuts and punchy hooks." },
+    { icon: Sparkles, title: "Motion Graphics", desc: "Custom kinetic type, lower-thirds and animated UI that match the brand voice." },
+    { icon: FileText, title: "Documentary Editing", desc: "Story-first structure, archival weaving, and emotional through-lines." },
+    { icon: Scissors, title: "Clean Editing", desc: "Polished, invisible cuts — frame-accurate, distraction-free, broadcast-ready." },
   ];
 
   return (
     <section id="services" className="relative py-28 px-6" style={{ background: "var(--cloud)", color: "var(--ink)" }}>
-      {/* Curved top */}
       <div className="absolute -top-px inset-x-0 h-12 pointer-events-none" style={{
         background: "radial-gradient(60% 100% at 50% 0%, var(--cloud) 0%, transparent 70%)"
       }} />
@@ -331,7 +346,7 @@ function Services() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 rounded-full bg-[oklch(0.93_0.04_268)] text-[oklch(0.4_0.18_268)] px-3 py-1 text-xs font-medium mb-5">
-            Expertise & Services
+            Expertise
           </div>
           <h2 className="font-display text-4xl md:text-6xl leading-tight">
             Cinematic Craft, End-to-End<br />Polished With Reccut
@@ -341,7 +356,7 @@ function Services() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {items.map((s) => {
             const isFeatured = s.featured;
             return (
@@ -349,7 +364,7 @@ function Services() {
                 key={s.title}
                 className={`rounded-2xl p-6 transition hover:-translate-y-1 ${
                   isFeatured
-                    ? "bg-[oklch(0.32_0.22_268)] text-white shadow-[0_30px_60px_-25px_oklch(0.32_0.22_268_/_0.55)]"
+                    ? "bg-[oklch(0.32_0.22_268)] text-white shadow-[0_30px_60px_-25px_oklch(0.32_0.22_268_/_0.55)] lg:row-span-2 lg:col-start-1"
                     : "bg-white shadow-[0_20px_40px_-25px_oklch(0.13_0.04_265_/_0.2)]"
                 }`}
               >
@@ -376,6 +391,116 @@ function Services() {
   );
 }
 
+/* ============== WHY CHOOSE ME ============== */
+function WhyChooseMe() {
+  const reasons = [
+    { icon: ShieldCheck, title: "Reliable Turnarounds", desc: "Deadlines met without compromising the cut. Daily updates, zero ghosting.", glow: "glow-card-blue" },
+    { icon: Layers, title: "Story-First Structure", desc: "I architect the narrative before touching a single transition.", glow: "glow-card-orange" },
+    { icon: MessagesSquare, title: "Clear Communication", desc: "Loom walkthroughs, structured revisions, and proactive creative direction.", glow: "glow-card-green" },
+    { icon: Sparkles, title: "Premium Finishing", desc: "Color, sound, and motion polish that punches above the budget.", glow: "glow-card-blue" },
+    { icon: Award, title: "Founder-Level Care", desc: "Co-Founder at Reccut — I treat your project like my own brand.", glow: "glow-card-orange" },
+    { icon: Zap, title: "Built For Conversion", desc: "Especially for SaaS ads — every cut tuned to drive the next click.", glow: "glow-card-green" },
+  ];
+  return (
+    <section id="why" className="relative py-28 px-6 bg-background grid-bg [mask-image:radial-gradient(ellipse_at_center,black,transparent_85%)]">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 mb-5">
+            <span className="size-1.5 rounded-full bg-[oklch(0.85_0.15_268)]" /> Why Choose Me
+          </div>
+          <h2 className="font-display text-4xl md:text-6xl text-white leading-tight">
+            Editors are everywhere.<br />
+            <span className="italic text-white/60">Story-led editors aren't.</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {reasons.map((r) => (
+            <article key={r.title} className={`${r.glow} rounded-[1.5rem] p-7 min-h-[220px] flex flex-col`}>
+              <div className="size-11 rounded-xl bg-white/10 grid place-items-center mb-6">
+                <r.icon className="size-5 text-white" />
+              </div>
+              <h3 className="font-grotesk text-lg font-semibold text-white">{r.title}</h3>
+              <p className="mt-2 text-sm text-white/70 leading-relaxed">{r.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============== TESTIMONIALS ============== */
+function Testimonials() {
+  const reviews = [
+    {
+      name: "Tauseef Rana",
+      role: "Content Creator, Developer",
+      rating: 5.0,
+      text: "Muneeb has extraordinary skills of editing, his attention to understand the requirements and then putting the efforts in editing makes the video more efficient and attention seeking. He is absolutely extra ordinary editor.",
+    },
+    {
+      name: "Roman",
+      role: "Content Creator",
+      rating: 5.0,
+      text: "I didn't have to micromanage anything. He made smart creative choices on his own, and they worked.",
+    },
+    {
+      name: "Umar Premee",
+      role: "Content Creator, Freelancer",
+      rating: 4.9,
+      text: "Most editors just edit. He actually cares. He asks questions. He suggests better shots. He fixes small details.",
+    },
+    {
+      name: "Haroon Awan",
+      role: "Content Creator",
+      rating: 4.9,
+      text: "The designs exceeded our expectations! Every element felt purposeful, creating a seamless and visually stunning brand identity.",
+    },
+  ];
+
+  return (
+    <section id="testimonials" className="relative py-28 px-6 bg-background">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 mb-5">
+            <Star className="size-3 fill-[oklch(0.85_0.18_85)] text-[oklch(0.85_0.18_85)]" /> Client Love
+          </div>
+          <h2 className="font-display text-4xl md:text-6xl text-white leading-tight">
+            Words from the<br />
+            <span className="italic text-white/60">creators I've worked with.</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {reviews.map((r) => (
+            <article key={r.name} className="rounded-2xl glass-dark p-6 hover:-translate-y-1 transition">
+              <div className="flex items-center gap-4">
+                <div className="size-12 rounded-full bg-[image:var(--gradient-primary)] grid place-items-center font-grotesk text-white font-bold text-lg">
+                  {r.name.charAt(0)}
+                </div>
+                <div>
+                  <div className="font-grotesk font-semibold text-white">{r.name}</div>
+                  <div className="text-xs text-white/60">{r.role}</div>
+                </div>
+              </div>
+              <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-4">
+                <span className="text-white font-grotesk font-semibold text-sm">{r.rating.toFixed(1)}</span>
+                <div className="flex">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="size-3.5 fill-[oklch(0.85_0.18_85)] text-[oklch(0.85_0.18_85)]" />
+                  ))}
+                </div>
+              </div>
+              <p className="mt-3 text-sm text-white/75 leading-relaxed">{r.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ============== PROCESS — dark glow cards ============== */
 function Process() {
   return (
@@ -388,7 +513,6 @@ function Process() {
           <p className="mt-4 text-white/70 max-w-md">
             From quick turnaround edits to deep narrative builds — every advantage in the visual revolution.
           </p>
-          <p className="mt-6 text-white/50 text-sm">Here's how I deliver on that promise, every project.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -400,9 +524,6 @@ function Process() {
             <p className="mt-3 text-white/70 text-sm max-w-xs">
               Your shortcut to staying ahead — a fresh edit on your desk every morning.
             </p>
-            <a href="#contact" className="mt-6 inline-flex items-center gap-2 text-white text-sm font-medium">
-              Get Daily Briefs <ArrowRight className="size-4" />
-            </a>
           </article>
 
           <article className="glow-card-blue rounded-[1.75rem] p-7 min-h-[320px] flex flex-col">
@@ -413,9 +534,6 @@ function Process() {
             <p className="mt-3 text-white/70 text-sm max-w-xs">
               The most refined editing tools and workflows — tested and tuned for your project.
             </p>
-            <a href="#contact" className="mt-6 inline-flex items-center gap-2 text-white text-sm font-medium">
-              See My Stack <ArrowRight className="size-4" />
-            </a>
           </article>
 
           <article className="glow-card-green rounded-[1.75rem] p-7 min-h-[320px] flex flex-col">
@@ -424,20 +542,9 @@ function Process() {
             </div>
             <h3 className="font-display text-3xl text-white">Expert Narrative</h3>
             <p className="mt-3 text-white/70 text-sm max-w-xs">
-              Actionable story analysis from years cutting brand films, vlogs, and short-form.
+              Actionable story analysis from years cutting brand films, SaaS ads, and long-form.
             </p>
-            <a href="#contact" className="mt-6 inline-flex items-center gap-2 text-white text-sm font-medium">
-              Unlock Insights <ArrowRight className="size-4" />
-            </a>
           </article>
-        </div>
-
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-white/60">
-          <span className="inline-flex items-center gap-2"><Zap className="size-4" /> Always Current</span>
-          <span className="opacity-30">|</span>
-          <span className="inline-flex items-center gap-2"><Award className="size-4" /> Focused For You</span>
-          <span className="opacity-30">|</span>
-          <span className="inline-flex items-center gap-2"><Sparkles className="size-4" /> Actionable Steps</span>
         </div>
       </div>
     </section>
@@ -456,7 +563,7 @@ function Contact() {
             <span className="italic text-white/80">unforgettable.</span>
           </h2>
           <p className="mt-4 text-white/75">
-            Brand film, YouTube series, or short-form campaign? I'd love to hear about it.
+            Long-form, SaaS ad, or short-form campaign? I'd love to hear about it.
           </p>
 
           <form className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-3 text-left" onSubmit={(e) => e.preventDefault()}>
@@ -467,6 +574,60 @@ function Contact() {
               <Mail className="size-4" /> Send Message
             </button>
           </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============== POLICIES ============== */
+function Policies() {
+  const items = [
+    {
+      title: "Revisions Policy",
+      body: "Each project includes up to 3 rounds of revisions. Additional rounds can be added at a flat per-round rate agreed upon before work begins.",
+    },
+    {
+      title: "Payment Terms",
+      body: "50% upfront to lock the slot, 50% on final delivery. Long-term retainers are billed monthly in advance.",
+    },
+    {
+      title: "Turnaround",
+      body: "Short-form: 48–72h. Long-form & SaaS ads: 5–10 working days depending on scope. Rush delivery available on request.",
+    },
+    {
+      title: "Ownership & Usage",
+      body: "Full commercial rights transfer to the client upon final payment. I retain the right to feature work in my portfolio unless an NDA states otherwise.",
+    },
+    {
+      title: "Confidentiality",
+      body: "All raw footage, scripts, and brand assets are handled under strict confidentiality. NDAs are honoured and signed on request.",
+    },
+    {
+      title: "Cancellation",
+      body: "Projects cancelled after work has begun are billed pro-rata for time and resources already committed.",
+    },
+  ];
+
+  return (
+    <section id="policies" className="relative py-24 px-6" style={{ background: "var(--cloud)", color: "var(--ink)" }}>
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 rounded-full bg-[oklch(0.93_0.04_268)] text-[oklch(0.4_0.18_268)] px-3 py-1 text-xs font-medium mb-5">
+            Policies & Conditions
+          </div>
+          <h2 className="font-display text-4xl md:text-5xl leading-tight">
+            Clear terms.<br />
+            <span className="italic text-[oklch(0.5_0.05_265)]">No surprises.</span>
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {items.map((it) => (
+            <div key={it.title} className="rounded-2xl bg-white p-6 shadow-[0_20px_40px_-25px_oklch(0.13_0.04_265_/_0.2)]">
+              <h3 className="font-grotesk text-lg font-semibold">{it.title}</h3>
+              <p className="mt-2 text-sm text-[oklch(0.5_0.04_265)] leading-relaxed">{it.body}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -494,7 +655,7 @@ function Footer() {
           <a href="#" aria-label="LinkedIn" className="size-10 rounded-full glass grid place-items-center text-white hover:text-[oklch(0.78_0.2_268)] transition"><Linkedin className="size-4" /></a>
         </div>
 
-        <div className="text-xs text-white/50">© 2026 Shoaib Hassan · Reccut Solutions</div>
+        <div className="text-xs text-white/50">© 2026 Muneeb · Reccut Solutions</div>
       </div>
     </footer>
   );
