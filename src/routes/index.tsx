@@ -529,8 +529,18 @@ function Testimonials() {
     },
   ];
 
+  // Imperfect, scattered placements (top%, left%, rotate deg, glow class)
+  const placements = [
+    { top: "6%",  left: "6%",  rot: -8,  glow: "glow-card-orange" },
+    { top: "10%", left: "58%", rot: 6,   glow: "glow-card-blue" },
+    { top: "52%", left: "20%", rot: 4,   glow: "glow-card-green" },
+    { top: "48%", left: "62%", rot: -5,  glow: "glow-card-blue" },
+  ];
+
+  const [active, setActive] = useState<number | null>(null);
+
   return (
-    <section id="testimonials" className="relative py-28 px-6 bg-background">
+    <section id="testimonials" className="relative py-28 px-6 bg-background overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 mb-5">
@@ -540,31 +550,69 @@ function Testimonials() {
             Words from the<br />
             <span className="italic text-white/60">creators I've worked with.</span>
           </h2>
+          <p className="mt-4 text-white/50 text-sm">Tap any card to focus it.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {reviews.map((r) => (
-            <article key={r.name} className="rounded-2xl glass-dark p-6 hover:-translate-y-1 transition">
-              <div className="flex items-center gap-4">
-                <div className="size-12 rounded-full bg-[image:var(--gradient-primary)] grid place-items-center font-grotesk text-white font-bold text-lg">
-                  {r.name.charAt(0)}
+        <div className="relative mx-auto h-[640px] md:h-[560px] max-w-5xl">
+          {/* Backdrop blur when active */}
+          <div
+            onClick={() => setActive(null)}
+            className={`absolute inset-0 rounded-[2rem] transition-all duration-500 ${
+              active !== null ? "bg-black/40 backdrop-blur-sm opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+          />
+
+          {reviews.map((r, i) => {
+            const p = placements[i];
+            const isActive = active === i;
+            const isDimmed = active !== null && !isActive;
+
+            const baseStyle: React.CSSProperties = {
+              top: p.top,
+              left: p.left,
+              transform: `rotate(${p.rot}deg)`,
+            };
+            const activeStyle: React.CSSProperties = {
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%) rotate(0deg) scale(1.05)",
+              zIndex: 50,
+            };
+
+            return (
+              <article
+                key={r.name}
+                onClick={() => setActive(isActive ? null : i)}
+                style={isActive ? activeStyle : baseStyle}
+                className={`absolute w-[300px] md:w-[340px] cursor-pointer rounded-2xl ${p.glow} p-6 will-change-transform
+                  transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]
+                  ${isDimmed ? "opacity-40 blur-[2px] scale-95" : "opacity-100"}
+                  hover:-translate-y-1`}
+              >
+                <Quote className="size-6 text-white/40 absolute top-4 right-5" />
+                <div className="flex items-center gap-3">
+                  <div className="size-12 rounded-full bg-[image:var(--gradient-primary)] grid place-items-center font-grotesk text-white font-bold text-lg shrink-0">
+                    {r.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-grotesk font-semibold text-white">{r.name}</div>
+                    <div className="text-xs text-white/60">{r.role}</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-grotesk font-semibold text-white">{r.name}</div>
-                  <div className="text-xs text-white/60">{r.role}</div>
+                <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-4">
+                  <span className="text-white font-grotesk font-semibold text-sm">{r.rating.toFixed(1)}</span>
+                  <div className="flex">
+                    {Array.from({ length: 5 }).map((_, k) => (
+                      <Star key={k} className="size-3.5 fill-[oklch(0.85_0.18_85)] text-[oklch(0.85_0.18_85)]" />
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-4">
-                <span className="text-white font-grotesk font-semibold text-sm">{r.rating.toFixed(1)}</span>
-                <div className="flex">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="size-3.5 fill-[oklch(0.85_0.18_85)] text-[oklch(0.85_0.18_85)]" />
-                  ))}
-                </div>
-              </div>
-              <p className="mt-3 text-sm text-white/75 leading-relaxed">{r.text}</p>
-            </article>
-          ))}
+                <p className={`mt-3 text-sm text-white/80 leading-relaxed transition-all duration-500 ${
+                  isActive ? "line-clamp-none" : "line-clamp-3"
+                }`}>{r.text}</p>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
