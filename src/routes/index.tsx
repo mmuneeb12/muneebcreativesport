@@ -239,9 +239,21 @@ const videos: VideoItem[] = [
 
 function Portfolio() {
   const [filter, setFilter] = useState<string>("All");
+  const [active, setActive] = useState<VideoItem | null>(null);
   const cats = ["All", "Long Form", "Short Form", "Saas Ads", "Plays"];
   const filtered = filter === "All" ? videos : videos.filter((v) => v.category === filter);
   const showComingSoon = filter === "Short Form";
+
+  useEffect(() => {
+    if (!active) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setActive(null);
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [active]);
 
   return (
     <section id="work" className="relative py-28 px-6 grid-bg [mask-image:radial-gradient(ellipse_at_center,black,transparent_85%)]">
@@ -287,36 +299,94 @@ function Portfolio() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((v, i) => (
               <article key={`${v.id}-${i}`} className={`rounded-3xl p-2.5 ${v.glow} group transition hover:-translate-y-1 duration-300`}>
-                <div className="rounded-2xl overflow-hidden bg-black/60">
-                  <div className="aspect-video relative">
-                    <iframe
-                      className="absolute inset-0 w-full h-full"
-                      src={`https://www.youtube.com/embed/${v.id}`}
-                      title={v.title}
-                      loading="lazy"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
+                <button
+                  type="button"
+                  onClick={() => setActive(v)}
+                  className="w-full block rounded-2xl overflow-hidden bg-black/60 relative aspect-video cursor-pointer"
+                  aria-label={`Play ${v.title}`}
+                >
+                  <img
+                    src={`https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`}
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`; }}
+                    alt={v.title}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                  <div className="absolute inset-0 grid place-items-center">
+                    <div className="size-16 rounded-full bg-white/95 grid place-items-center shadow-2xl transition group-hover:scale-110">
+                      <Play className="size-6 fill-[oklch(0.18_0.07_265)] text-[oklch(0.18_0.07_265)] ml-1" />
+                    </div>
                   </div>
-                </div>
+                </button>
                 <div className="px-3 pt-4 pb-3 flex items-start justify-between gap-3">
                   <div>
                     <div className="text-[10px] tracking-[0.18em] text-white/50">{v.tag}</div>
                     <h3 className="font-grotesk text-base font-semibold mt-1 text-white">{v.title}</h3>
                   </div>
-                  <a
-                    href={`https://youtu.be/${v.id}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="size-8 rounded-full bg-white/10 grid place-items-center group-hover:bg-white group-hover:text-[oklch(0.18_0.07_265)] transition"
+                  <button
+                    onClick={() => setActive(v)}
+                    className="size-8 rounded-full bg-white/10 grid place-items-center group-hover:bg-white group-hover:text-[oklch(0.18_0.07_265)] transition cursor-pointer"
+                    aria-label="Open preview"
                   >
                     <ArrowUpRight className="size-4" />
-                  </a>
+                  </button>
                 </div>
               </article>
             ))}
           </div>
         )}
+      </div>
+
+      {/* Lightbox */}
+      <div
+        className={`fixed inset-0 z-[80] grid place-items-center p-4 md:p-10 transition-all duration-300 ${
+          active ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setActive(null)}
+      >
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+        <div
+          className={`relative w-full max-w-6xl transition-all duration-500 ${active ? "scale-100 translate-y-0" : "scale-95 translate-y-4"}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={() => setActive(null)}
+            className="absolute -top-12 right-0 size-10 rounded-full glass grid place-items-center text-white hover:bg-white/20 cursor-pointer"
+            aria-label="Close"
+          >
+            <X className="size-5" />
+          </button>
+          <div className={`rounded-3xl overflow-hidden ${active?.glow ?? ""}`}>
+            <div className="aspect-video bg-black">
+              {active && (
+                <iframe
+                  className="w-full h-full"
+                  src={`https://www.youtube.com/embed/${active.id}?autoplay=1&rel=0&modestbranding=1`}
+                  title={active.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
+            </div>
+            {active && (
+              <div className="p-5 md:p-6 flex items-center justify-between gap-4 bg-black/40 backdrop-blur">
+                <div>
+                  <div className="text-[10px] tracking-[0.18em] text-white/50">{active.tag}</div>
+                  <h3 className="font-display text-2xl md:text-3xl text-white mt-1">{active.title}</h3>
+                </div>
+                <a
+                  href={`https://youtu.be/${active.id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="pill-btn bg-white text-[oklch(0.32_0.22_268)] hover:bg-white/90 text-sm"
+                >
+                  Open on YouTube <ArrowUpRight className="size-4" />
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );
