@@ -754,6 +754,28 @@ function Policies() {
 
 /* ============== FOOTER ============== */
 function Footer() {
+  const [openTerms, setOpenTerms] = useState(false);
+
+  useEffect(() => {
+    if (!openTerms) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpenTerms(false);
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [openTerms]);
+
+  const terms = [
+    { title: "Revisions Policy", body: "Each project includes up to 3 rounds of revisions. Additional rounds can be added at a flat per-round rate agreed upon before work begins." },
+    { title: "Payment Terms", body: "50% upfront to lock the slot, 50% on final delivery. Long-term retainers are billed monthly in advance." },
+    { title: "Turnaround", body: "Short-form: 48–72h. Long-form & SaaS ads: 5–10 working days depending on scope. Rush delivery available on request." },
+    { title: "Ownership & Usage", body: "Full commercial rights transfer to the client upon final payment. I retain the right to feature work in my portfolio unless an NDA states otherwise." },
+    { title: "Confidentiality", body: "All raw footage, scripts, and brand assets are handled under strict confidentiality. NDAs are honoured and signed on request." },
+    { title: "Cancellation", body: "Projects cancelled after work has begun are billed pro-rata for time and resources already committed." },
+  ];
+
   return (
     <footer className="relative px-6 pb-12 pt-8">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 border-t border-white/5 pt-8">
@@ -762,8 +784,8 @@ function Footer() {
             <Play className="size-4 fill-white text-white" />
           </div>
           <div>
-            <div className="font-grotesk font-semibold text-white">Reccut Solutions</div>
-            <div className="text-xs text-white/50">Cinematic editing studio</div>
+            <div className="font-grotesk font-semibold text-white">Muneeb</div>
+            <div className="text-xs text-white/50">Cinematic editing · Reccut Solutions</div>
           </div>
         </div>
 
@@ -773,7 +795,56 @@ function Footer() {
           <a href="#" aria-label="LinkedIn" className="size-10 rounded-full glass grid place-items-center text-white hover:text-[oklch(0.78_0.2_268)] transition"><Linkedin className="size-4" /></a>
         </div>
 
-        <div className="text-xs text-white/50">© 2026 Muneeb · Reccut Solutions</div>
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={() => setOpenTerms(true)}
+            className="text-xs text-white/70 hover:text-white underline-offset-4 hover:underline cursor-pointer"
+          >
+            Terms & Conditions
+          </button>
+          <div className="text-xs text-white/50">© 2026 Muneeb</div>
+        </div>
+      </div>
+
+      {/* Terms popup */}
+      <div
+        className={`fixed inset-0 z-[90] grid place-items-center p-4 md:p-8 transition-all duration-300 ${
+          openTerms ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setOpenTerms(false)}
+      >
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className={`relative w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl glass-dark p-8 md:p-10 text-white transition-all duration-500 ${
+            openTerms ? "scale-100 translate-y-0" : "scale-95 translate-y-4"
+          }`}
+        >
+          <button
+            onClick={() => setOpenTerms(false)}
+            className="absolute top-5 right-5 size-9 rounded-full bg-white/10 hover:bg-white/20 grid place-items-center cursor-pointer"
+            aria-label="Close terms"
+          >
+            <X className="size-4" />
+          </button>
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 mb-4">
+            Terms & Conditions
+          </div>
+          <h3 className="font-display text-3xl md:text-4xl leading-tight">
+            Clear terms.<br />
+            <span className="italic text-white/60">No surprises.</span>
+          </h3>
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {terms.map((t) => (
+              <div key={t.title} className="rounded-2xl bg-white/5 border border-white/10 p-5">
+                <h4 className="font-grotesk font-semibold text-white">{t.title}</h4>
+                <p className="mt-2 text-sm text-white/70 leading-relaxed">{t.body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-xs text-white/40">By engaging with Muneeb / Reccut Solutions for any project, you agree to the terms above.</p>
+        </div>
       </div>
     </footer>
   );
