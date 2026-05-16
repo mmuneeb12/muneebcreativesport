@@ -129,7 +129,7 @@ function Hero() {
         <div className="relative z-10 px-4 md:px-8 pb-20 mt-8">
           <div className="relative max-w-5xl mx-auto h-[420px] md:h-[440px]">
             {/* Left card */}
-            <div className="absolute left-0 top-8 w-[260px] md:w-[280px] rounded-2xl bg-white text-[oklch(0.18_0.07_265)] p-5 shadow-2xl rotate-[-3deg]">
+            <div className="absolute left-0 top-8 w-[260px] md:w-[280px] rounded-2xl bg-white text-[oklch(0.18_0.07_265)] p-5 shadow-2xl rotate-[-3deg] float-y">
               <div className="text-xs font-medium text-[oklch(0.45_0.05_265)]">Reels Edited</div>
               <div className="text-xs text-[oklch(0.55_0.04_265)]">Last Update</div>
               <div className="mt-2 flex items-end justify-between">
@@ -154,7 +154,7 @@ function Hero() {
             </div>
 
             {/* Center card */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[300px] md:w-[340px] rounded-[2rem] bg-white text-[oklch(0.18_0.07_265)] p-6 shadow-2xl">
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[300px] md:w-[340px] rounded-[2rem] bg-white text-[oklch(0.18_0.07_265)] p-6 shadow-2xl float-y-slow">
               <div className="mx-auto inline-flex w-full items-center justify-center gap-2 rounded-full bg-[oklch(0.96_0.01_265)] px-4 py-1.5 text-xs">
                 Editor's Live Timeline
               </div>
@@ -190,7 +190,7 @@ function Hero() {
             </div>
 
             {/* Right card — glassy */}
-            <div className="absolute right-0 top-12 w-[250px] md:w-[280px] rounded-2xl glass-dark p-5 text-white rotate-[3deg]">
+            <div className="absolute right-0 top-12 w-[250px] md:w-[280px] rounded-2xl glass-dark p-5 text-white rotate-[3deg] float-y">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[10px]">
                 <span className="size-1.5 rounded-full bg-[oklch(0.78_0.18_150)]" /> Latest Project
               </span>
