@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Play, Sparkles, Star, Users, Award, Film, Mail, Instagram, Linkedin, Youtube, ArrowRight, ArrowUpRight, Plane, Zap, Inbox, Wrench, Clock, ShieldCheck, MessagesSquare, Layers, Scissors, Video, FileText, X, Quote } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import LaserFlow from "@/components/LaserFlow";
+import ClickSpark from "@/components/ClickSpark";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,18 +18,21 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground antialiased overflow-x-hidden">
-      <Hero />
-      <Stats />
-      <Portfolio />
-      <Services />
-      <WhyChooseMe />
-      <Testimonials />
-      <Process />
-      <Contact />
-      <Policies />
-      <Footer />
-    </div>
+    <ClickSpark sparkColor="#9CB7FF" sparkSize={14} sparkRadius={26} sparkCount={10} duration={520}>
+      <div className="min-h-screen bg-background text-foreground antialiased overflow-x-hidden">
+        <Hero />
+        <Stats />
+        <Portfolio />
+        <Services />
+        <WhyChooseMe />
+        <Marquee />
+        <Testimonials />
+        <Process />
+        <Contact />
+        <Policies />
+        <Footer />
+      </div>
+    </ClickSpark>
   );
 }
 
