@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Play, Sparkles, Star, Users, Award, Film, Mail, Instagram, Linkedin, Youtube, ArrowRight, ArrowUpRight, Plane, Zap, Inbox, Wrench, Clock, ShieldCheck, MessagesSquare, Layers, Scissors, Video, FileText, X, Quote } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import LaserFlow from "@/components/LaserFlow";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,34 +34,58 @@ function Index() {
 
 /* ============== HERO ============== */
 function Hero() {
+  const heroRef = useRef<HTMLDivElement | null>(null);
   return (
     <section id="top" className="relative pb-24 pt-6 px-3 md:px-5">
-      {/* Giant outlined background wordmark */}
+      {/* Giant outlined background wordmark — MOTION in Helvetica */}
       <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center overflow-hidden select-none">
         <h1
-          className="font-grotesk font-bold text-[18vw] leading-none tracking-tight whitespace-nowrap pt-4"
+          className="font-bold text-[20vw] leading-none tracking-[-0.04em] whitespace-nowrap pt-4 animate-[motion-morph_8s_ease-in-out_infinite]"
           style={{
+            fontFamily: "Helvetica, 'Helvetica Neue', Arial, sans-serif",
             color: "transparent",
-            WebkitTextStroke: "1px oklch(0.5 0.05 265 / 0.35)",
+            WebkitTextStroke: "1px oklch(0.6 0.18 268 / 0.45)",
           }}
         >
-          MOTIONS
+          MOTION
         </h1>
       </div>
 
-      <div className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden mt-24 md:mt-32" style={{ background: "var(--gradient-hero)" }}>
+      <div ref={heroRef} className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden mt-24 md:mt-32" style={{ background: "var(--gradient-hero)" }}>
         <div className="absolute inset-0 stripes opacity-100" />
-        <div className="absolute inset-0" style={{
-          background: "radial-gradient(70% 60% at 50% 110%, oklch(0.95 0.03 250 / 0.95) 0%, transparent 55%)"
+
+        {/* LaserFlow shader — fills the hero card */}
+        <div className="absolute inset-0 z-0 opacity-90 mix-blend-screen">
+          <LaserFlow
+            color="#7AA2FF"
+            horizontalBeamOffset={0.0}
+            verticalBeamOffset={-0.05}
+            wispDensity={1.2}
+            wispIntensity={4.0}
+            flowSpeed={0.4}
+            fogIntensity={0.55}
+            mouseTiltStrength={0.02}
+            mouseSmoothTime={0.08}
+          />
+        </div>
+
+        {/* Morphing aurora blobs */}
+        <div className="pointer-events-none absolute -top-20 -left-20 w-[420px] h-[420px] rounded-full blur-3xl opacity-50 animate-[blob-morph_14s_ease-in-out_infinite]"
+             style={{ background: "radial-gradient(circle, oklch(0.7 0.25 268 / 0.7), transparent 70%)" }} />
+        <div className="pointer-events-none absolute -bottom-32 -right-10 w-[520px] h-[520px] rounded-full blur-3xl opacity-50 animate-[blob-morph_18s_ease-in-out_infinite_reverse]"
+             style={{ background: "radial-gradient(circle, oklch(0.65 0.22 290 / 0.65), transparent 70%)" }} />
+
+        <div className="absolute inset-0 z-[1]" style={{
+          background: "radial-gradient(70% 60% at 50% 110%, oklch(0.95 0.03 250 / 0.85) 0%, transparent 55%)"
         }} />
 
         {/* Top nav */}
         <div className="relative z-10 flex items-center justify-between gap-3 px-5 md:px-8 pt-6">
-          <a href="#top" className="flex items-center gap-2 font-grotesk font-semibold text-white">
+          <a href="#top" className="flex items-center gap-2 font-semibold text-white" style={{ fontFamily: "Helvetica, 'Helvetica Neue', Arial, sans-serif" }}>
             <span className="size-7 rounded-md bg-white/15 grid place-items-center backdrop-blur">
               <Play className="size-3.5 fill-white text-white" />
             </span>
-            Muneeb<span className="opacity-60 -ml-1">.studio</span>
+            Muneeb
           </a>
           <ul className="hidden md:flex items-center gap-7 text-sm text-white/85">
             <li><a href="#top" className="hover:text-white">Home</a></li>
