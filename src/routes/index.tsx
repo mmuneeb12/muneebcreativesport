@@ -37,34 +37,22 @@ function Hero() {
   const heroRef = useRef<HTMLDivElement | null>(null);
   return (
     <section id="top" className="relative pb-24 pt-6 px-3 md:px-5">
-      {/* Giant outlined background wordmark — MOTION in Helvetica */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center overflow-hidden select-none">
-        <h1
-          className="font-bold text-[20vw] leading-none tracking-[-0.04em] whitespace-nowrap pt-4 animate-[motion-morph_8s_ease-in-out_infinite]"
-          style={{
-            fontFamily: "Helvetica, 'Helvetica Neue', Arial, sans-serif",
-            color: "transparent",
-            WebkitTextStroke: "1px oklch(0.6 0.18 268 / 0.45)",
-          }}
-        >
-          MOTION
-        </h1>
-      </div>
-
-      <div ref={heroRef} className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden mt-24 md:mt-32" style={{ background: "var(--gradient-hero)" }}>
+      <div ref={heroRef} className="relative rounded-[2rem] md:rounded-[2.5rem] overflow-hidden mt-6" style={{ background: "var(--gradient-hero)" }}>
         <div className="absolute inset-0 stripes opacity-100" />
 
-        {/* LaserFlow shader — fills the hero card */}
-        <div className="absolute inset-0 z-0 opacity-90 mix-blend-screen">
+        {/* LaserFlow shader — fills the hero card, beam reaches bottom */}
+        <div className="absolute inset-0 z-0 opacity-95 mix-blend-screen">
           <LaserFlow
             color="#7AA2FF"
             horizontalBeamOffset={0.0}
-            verticalBeamOffset={-0.05}
-            wispDensity={1.2}
-            wispIntensity={4.0}
-            flowSpeed={0.4}
-            fogIntensity={0.55}
-            mouseTiltStrength={0.02}
+            verticalBeamOffset={0.42}
+            verticalSizing={3.4}
+            horizontalSizing={0.55}
+            wispDensity={1.3}
+            wispIntensity={5.5}
+            flowSpeed={0.45}
+            fogIntensity={0.6}
+            mouseTiltStrength={0.025}
             mouseSmoothTime={0.08}
           />
         </div>
