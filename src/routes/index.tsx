@@ -67,8 +67,8 @@ function Hero() {
         <div className="pointer-events-none absolute -bottom-32 -right-10 w-[520px] h-[520px] rounded-full blur-3xl opacity-50 animate-[blob-morph_18s_ease-in-out_infinite_reverse]"
              style={{ background: "radial-gradient(circle, oklch(0.65 0.22 290 / 0.65), transparent 70%)" }} />
 
-        <div className="absolute inset-0 z-[1]" style={{
-          background: "radial-gradient(70% 60% at 50% 110%, oklch(0.95 0.03 250 / 0.85) 0%, transparent 55%)"
+        <div className="absolute inset-x-0 bottom-0 h-40 z-[1] pointer-events-none" style={{
+          background: "linear-gradient(to top, oklch(0.18 0.08 268 / 0.55), transparent)"
         }} />
 
         {/* Top nav */}
@@ -518,6 +518,25 @@ function WhyChooseMe() {
 }
 
 /* ============== TESTIMONIALS ============== */
+function Marquee() {
+  const items = ["Cinematic", "Story-First", "Motion Graphics", "Color Grading", "Sound Design", "SaaS Ads", "Long Form", "Reels", "Documentary", "Clean Cuts"];
+  const row = [...items, ...items];
+  return (
+    <section className="relative py-16 overflow-hidden border-y border-white/5">
+      <div className="absolute inset-y-0 left-0 w-32 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-32 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+      <div className="flex gap-10 animate-[marquee_28s_linear_infinite] whitespace-nowrap">
+        {row.map((w, i) => (
+          <span key={i} className="font-display text-5xl md:text-7xl text-white/15 hover:text-white/80 transition-colors duration-500 flex items-center gap-10">
+            {w}
+            <span className="size-2 rounded-full bg-[oklch(0.65_0.22_268)]" />
+          </span>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Testimonials() {
   const reviews = [
     {
