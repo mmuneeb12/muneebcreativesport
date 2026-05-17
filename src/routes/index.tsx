@@ -242,16 +242,79 @@ function Stats() {
 }
 
 /* ============== PORTFOLIO ============== */
-type VideoItem = { id: string; title: string; category: string; glow: string; tag: string };
+type VideoItem = {
+  id: string;
+  title: string;
+  category: string;
+  glow: string;
+  tag: string;
+  client: string;
+  role: string;
+  duration: string;
+  year: string;
+  summary: string;
+  deliverables: string[];
+  highlights: { label: string; value: string }[];
+  tools: string[];
+};
 
 const videos: VideoItem[] = [
-  { id: "26kpqA5O_po", title: "Long-Form Feature Edit", category: "Long Form", glow: "glow-card-orange", tag: "LONG FORM" },
-  { id: "nX__5RFgf8Y", title: "Documentary Cut", category: "Long Form", glow: "glow-card-orange", tag: "LONG FORM" },
-  { id: "7W5YssgZfQc", title: "SaaS Product Ad", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD" },
-  { id: "i1zxqLZhC5c", title: "SaaS Brand Story", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD" },
-  { id: "YyhvWWGmGvw", title: "SaaS Conversion Spot", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD" },
-  { id: "HNRcWiOXD2c", title: "Play — Highlight Reel", category: "Plays", glow: "glow-card-green", tag: "PLAYS" },
-  { id: "HNRcWiOXD2c", title: "Play — Cinematic Cut", category: "Plays", glow: "glow-card-green", tag: "PLAYS" },
+  {
+    id: "26kpqA5O_po", title: "Long-Form Feature Edit", category: "Long Form", glow: "glow-card-orange", tag: "LONG FORM",
+    client: "Independent Creator", role: "Lead Editor & Colorist", duration: "18 min", year: "2024",
+    summary: "A narrative-driven long-form piece engineered to hold attention from cold-open to credits — paced through music, tension and breath.",
+    deliverables: ["Story restructure", "Color grade", "Sound design", "Master deliverables"],
+    highlights: [{ label: "Watch-time lift", value: "+62%" }, { label: "Retention @50%", value: "78%" }, { label: "Cuts made", value: "1.2k+" }],
+    tools: ["Premiere Pro", "DaVinci Resolve", "After Effects"],
+  },
+  {
+    id: "nX__5RFgf8Y", title: "Documentary Cut", category: "Long Form", glow: "glow-card-orange", tag: "LONG FORM",
+    client: "Docu Studio", role: "Story Editor", duration: "22 min", year: "2024",
+    summary: "Found the through-line across 40+ hours of interview footage and shaped a tight, emotionally honest cut.",
+    deliverables: ["Selects & assembly", "Narrative edit", "Title design", "Final mix prep"],
+    highlights: [{ label: "Raw footage", value: "40h+" }, { label: "Final runtime", value: "22m" }, { label: "Revisions", value: "2" }],
+    tools: ["Premiere Pro", "Frame.io"],
+  },
+  {
+    id: "7W5YssgZfQc", title: "SaaS Product Ad", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD",
+    client: "B2B SaaS", role: "Editor & Motion", duration: "45s", year: "2025",
+    summary: "Conversion-optimised product spot: hook in 1.2s, value in 6s, CTA punch at the end.",
+    deliverables: ["Script-to-screen edit", "UI motion graphics", "Sound design", "9:16 + 16:9 cuts"],
+    highlights: [{ label: "Hook hold", value: "94%" }, { label: "CTR lift", value: "+38%" }, { label: "Turnaround", value: "4 days" }],
+    tools: ["After Effects", "Premiere Pro"],
+  },
+  {
+    id: "i1zxqLZhC5c", title: "SaaS Brand Story", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD",
+    client: "Aurora Co.", role: "Lead Editor", duration: "60s", year: "2025",
+    summary: "Brand-led story spot translating a complex product into a single human moment.",
+    deliverables: ["Edit & pacing", "Color", "Mix"],
+    highlights: [{ label: "Replay rate", value: "90%" }, { label: "Avg view", value: "52s" }, { label: "Versions", value: "6" }],
+    tools: ["Premiere Pro", "DaVinci Resolve"],
+  },
+  {
+    id: "YyhvWWGmGvw", title: "SaaS Conversion Spot", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD",
+    client: "Growth-stage SaaS", role: "Editor", duration: "30s", year: "2025",
+    summary: "Performance-first cutdown with three hook variants tested in-market.",
+    deliverables: ["3 hook variants", "Motion graphics", "Captioned cut"],
+    highlights: [{ label: "CPM drop", value: "-24%" }, { label: "Winning hook", value: "V2" }, { label: "Aspect ratios", value: "3" }],
+    tools: ["After Effects", "Premiere Pro"],
+  },
+  {
+    id: "HNRcWiOXD2c", title: "Play — Highlight Reel", category: "Plays", glow: "glow-card-green", tag: "PLAYS",
+    client: "Sports Team", role: "Editor", duration: "2 min", year: "2024",
+    summary: "Punchy highlight reel cut to a rising score — built for shareability across socials.",
+    deliverables: ["Selects", "Beat-matched edit", "Graphic overlays"],
+    highlights: [{ label: "Shares", value: "8.4k" }, { label: "Plays", value: "210k" }, { label: "Watch %", value: "71%" }],
+    tools: ["Premiere Pro", "After Effects"],
+  },
+  {
+    id: "HNRcWiOXD2c", title: "Play — Cinematic Cut", category: "Plays", glow: "glow-card-green", tag: "PLAYS",
+    client: "Sports Team", role: "Editor & Colorist", duration: "90s", year: "2024",
+    summary: "Slow-burn cinematic version of the same footage, leaning into mood and grade.",
+    deliverables: ["Cinematic edit", "Color grade", "Score sync"],
+    highlights: [{ label: "Avg view", value: "82s" }, { label: "Saves", value: "3.1k" }, { label: "Comments", value: "+220%" }],
+    tools: ["DaVinci Resolve", "Premiere Pro"],
+  },
 ];
 
 function Portfolio() {
