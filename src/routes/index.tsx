@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Play, Sparkles, Star, Users, Award, Film, Mail, Instagram, Linkedin, Youtube, ArrowRight, ArrowUpRight, Plane, Zap, Inbox, Wrench, Clock, ShieldCheck, MessagesSquare, Layers, Scissors, Video, FileText, X, Quote } from "lucide-react";
+import { Play, Sparkles, Star, Users, Award, Film, Mail, Instagram, Linkedin, Youtube, ArrowRight, ArrowUpRight, Plane, Zap, Inbox, Wrench, Clock, ShieldCheck, MessagesSquare, Layers, Scissors, Video, FileText, X, Quote, CheckCircle2, Briefcase, CalendarDays, Timer } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import LaserFlow from "@/components/LaserFlow";
 import ClickSpark from "@/components/ClickSpark";
