@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Play, Sparkles, Star, Users, Award, Film, Mail, Instagram, Linkedin, Youtube, ArrowRight, ArrowUpRight, Plane, Zap, Inbox, Wrench, Clock, ShieldCheck, MessagesSquare, Layers, Scissors, Video, FileText, X, Quote } from "lucide-react";
+import { Play, Sparkles, Star, Users, Award, Film, Mail, Instagram, Linkedin, Youtube, ArrowRight, ArrowUpRight, Plane, Zap, Inbox, Wrench, Clock, ShieldCheck, MessagesSquare, Layers, Scissors, Video, FileText, X, Quote, CheckCircle2, Briefcase, CalendarDays, Timer } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import LaserFlow from "@/components/LaserFlow";
 import ClickSpark from "@/components/ClickSpark";
@@ -242,16 +242,79 @@ function Stats() {
 }
 
 /* ============== PORTFOLIO ============== */
-type VideoItem = { id: string; title: string; category: string; glow: string; tag: string };
+type VideoItem = {
+  id: string;
+  title: string;
+  category: string;
+  glow: string;
+  tag: string;
+  client: string;
+  role: string;
+  duration: string;
+  year: string;
+  summary: string;
+  deliverables: string[];
+  highlights: { label: string; value: string }[];
+  tools: string[];
+};
 
 const videos: VideoItem[] = [
-  { id: "26kpqA5O_po", title: "Long-Form Feature Edit", category: "Long Form", glow: "glow-card-orange", tag: "LONG FORM" },
-  { id: "nX__5RFgf8Y", title: "Documentary Cut", category: "Long Form", glow: "glow-card-orange", tag: "LONG FORM" },
-  { id: "7W5YssgZfQc", title: "SaaS Product Ad", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD" },
-  { id: "i1zxqLZhC5c", title: "SaaS Brand Story", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD" },
-  { id: "YyhvWWGmGvw", title: "SaaS Conversion Spot", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD" },
-  { id: "HNRcWiOXD2c", title: "Play — Highlight Reel", category: "Plays", glow: "glow-card-green", tag: "PLAYS" },
-  { id: "HNRcWiOXD2c", title: "Play — Cinematic Cut", category: "Plays", glow: "glow-card-green", tag: "PLAYS" },
+  {
+    id: "26kpqA5O_po", title: "Long-Form Feature Edit", category: "Long Form", glow: "glow-card-orange", tag: "LONG FORM",
+    client: "Independent Creator", role: "Lead Editor & Colorist", duration: "18 min", year: "2024",
+    summary: "A narrative-driven long-form piece engineered to hold attention from cold-open to credits — paced through music, tension and breath.",
+    deliverables: ["Story restructure", "Color grade", "Sound design", "Master deliverables"],
+    highlights: [{ label: "Watch-time lift", value: "+62%" }, { label: "Retention @50%", value: "78%" }, { label: "Cuts made", value: "1.2k+" }],
+    tools: ["Premiere Pro", "DaVinci Resolve", "After Effects"],
+  },
+  {
+    id: "nX__5RFgf8Y", title: "Documentary Cut", category: "Long Form", glow: "glow-card-orange", tag: "LONG FORM",
+    client: "Docu Studio", role: "Story Editor", duration: "22 min", year: "2024",
+    summary: "Found the through-line across 40+ hours of interview footage and shaped a tight, emotionally honest cut.",
+    deliverables: ["Selects & assembly", "Narrative edit", "Title design", "Final mix prep"],
+    highlights: [{ label: "Raw footage", value: "40h+" }, { label: "Final runtime", value: "22m" }, { label: "Revisions", value: "2" }],
+    tools: ["Premiere Pro", "Frame.io"],
+  },
+  {
+    id: "7W5YssgZfQc", title: "SaaS Product Ad", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD",
+    client: "B2B SaaS", role: "Editor & Motion", duration: "45s", year: "2025",
+    summary: "Conversion-optimised product spot: hook in 1.2s, value in 6s, CTA punch at the end.",
+    deliverables: ["Script-to-screen edit", "UI motion graphics", "Sound design", "9:16 + 16:9 cuts"],
+    highlights: [{ label: "Hook hold", value: "94%" }, { label: "CTR lift", value: "+38%" }, { label: "Turnaround", value: "4 days" }],
+    tools: ["After Effects", "Premiere Pro"],
+  },
+  {
+    id: "i1zxqLZhC5c", title: "SaaS Brand Story", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD",
+    client: "Aurora Co.", role: "Lead Editor", duration: "60s", year: "2025",
+    summary: "Brand-led story spot translating a complex product into a single human moment.",
+    deliverables: ["Edit & pacing", "Color", "Mix"],
+    highlights: [{ label: "Replay rate", value: "90%" }, { label: "Avg view", value: "52s" }, { label: "Versions", value: "6" }],
+    tools: ["Premiere Pro", "DaVinci Resolve"],
+  },
+  {
+    id: "YyhvWWGmGvw", title: "SaaS Conversion Spot", category: "Saas Ads", glow: "glow-card-blue", tag: "SAAS AD",
+    client: "Growth-stage SaaS", role: "Editor", duration: "30s", year: "2025",
+    summary: "Performance-first cutdown with three hook variants tested in-market.",
+    deliverables: ["3 hook variants", "Motion graphics", "Captioned cut"],
+    highlights: [{ label: "CPM drop", value: "-24%" }, { label: "Winning hook", value: "V2" }, { label: "Aspect ratios", value: "3" }],
+    tools: ["After Effects", "Premiere Pro"],
+  },
+  {
+    id: "HNRcWiOXD2c", title: "Play — Highlight Reel", category: "Plays", glow: "glow-card-green", tag: "PLAYS",
+    client: "Sports Team", role: "Editor", duration: "2 min", year: "2024",
+    summary: "Punchy highlight reel cut to a rising score — built for shareability across socials.",
+    deliverables: ["Selects", "Beat-matched edit", "Graphic overlays"],
+    highlights: [{ label: "Shares", value: "8.4k" }, { label: "Plays", value: "210k" }, { label: "Watch %", value: "71%" }],
+    tools: ["Premiere Pro", "After Effects"],
+  },
+  {
+    id: "HNRcWiOXD2c", title: "Play — Cinematic Cut", category: "Plays", glow: "glow-card-green", tag: "PLAYS",
+    client: "Sports Team", role: "Editor & Colorist", duration: "90s", year: "2024",
+    summary: "Slow-burn cinematic version of the same footage, leaning into mood and grade.",
+    deliverables: ["Cinematic edit", "Color grade", "Score sync"],
+    highlights: [{ label: "Avg view", value: "82s" }, { label: "Saves", value: "3.1k" }, { label: "Comments", value: "+220%" }],
+    tools: ["DaVinci Resolve", "Premiere Pro"],
+  },
 ];
 
 function Portfolio() {
@@ -355,54 +418,111 @@ function Portfolio() {
         )}
       </div>
 
-      {/* Lightbox */}
+      {/* Case Study Modal */}
       <div
-        className={`fixed inset-0 z-[80] grid place-items-center p-4 md:p-10 transition-all duration-300 ${
+        className={`fixed inset-0 z-[80] grid place-items-center p-3 md:p-8 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           active ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setActive(null)}
+        aria-hidden={!active}
       >
-        <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+        <div className={`absolute inset-0 bg-black/85 backdrop-blur-xl transition-opacity duration-500 ${active ? "opacity-100" : "opacity-0"}`} />
         <div
-          className={`relative w-full max-w-6xl transition-all duration-500 ${active ? "scale-100 translate-y-0" : "scale-95 translate-y-4"}`}
+          className={`relative w-full max-w-6xl max-h-[92vh] overflow-y-auto transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            active ? "scale-100 translate-y-0 opacity-100" : "scale-[0.96] translate-y-6 opacity-0"
+          }`}
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={() => setActive(null)}
-            className="absolute -top-12 right-0 size-10 rounded-full glass grid place-items-center text-white hover:bg-white/20 cursor-pointer"
-            aria-label="Close"
+            className="absolute top-3 right-3 md:-top-12 md:right-0 z-10 size-10 rounded-full bg-white/10 backdrop-blur border border-white/15 grid place-items-center text-white hover:bg-white/20 hover:rotate-90 transition duration-300 cursor-pointer"
+            aria-label="Close case study"
           >
             <X className="size-5" />
           </button>
-          <div className={`rounded-3xl overflow-hidden ${active?.glow ?? ""}`}>
-            <div className="aspect-video bg-black">
-              {active && (
+
+          {active && (
+            <div className={`rounded-3xl overflow-hidden ${active.glow} bg-[oklch(0.14_0.05_268)]`}>
+              {/* Video Preview */}
+              <div className="relative aspect-video bg-black">
                 <iframe
+                  key={active.id + active.title}
                   className="w-full h-full"
                   src={`https://www.youtube.com/embed/${active.id}?autoplay=1&rel=0&modestbranding=1`}
                   title={active.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
-              )}
-            </div>
-            {active && (
-              <div className="p-5 md:p-6 flex items-center justify-between gap-4 bg-black/40 backdrop-blur">
-                <div>
-                  <div className="text-[10px] tracking-[0.18em] text-white/50">{active.tag}</div>
-                  <h3 className="font-display text-2xl md:text-3xl text-white mt-1">{active.title}</h3>
-                </div>
-                <a
-                  href={`https://youtu.be/${active.id}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="pill-btn bg-white text-[oklch(0.32_0.22_268)] hover:bg-white/90 text-sm"
-                >
-                  Open on YouTube <ArrowUpRight className="size-4" />
-                </a>
               </div>
-            )}
-          </div>
+
+              {/* Case Study Body */}
+              <div className="p-6 md:p-10 grid md:grid-cols-3 gap-8 bg-gradient-to-b from-black/40 to-black/10">
+                <div className="md:col-span-2 space-y-6 animate-fade-in">
+                  <div>
+                    <div className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-white/50">
+                      <span>{active.tag}</span>
+                      <span className="size-1 rounded-full bg-white/30" />
+                      <span>{active.year}</span>
+                    </div>
+                    <h3 className="font-display text-3xl md:text-5xl text-white mt-3 leading-[1.05]">{active.title}</h3>
+                    <p className="mt-4 text-white/75 text-sm md:text-base leading-relaxed max-w-2xl">{active.summary}</p>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-3">
+                    {active.highlights.map((h) => (
+                      <div key={h.label} className="rounded-2xl bg-white/5 border border-white/10 p-4 backdrop-blur">
+                        <div className="font-grotesk text-xl md:text-2xl font-bold text-white">{h.value}</div>
+                        <div className="text-[10px] uppercase tracking-wider text-white/50 mt-1">{h.label}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div>
+                    <div className="text-[10px] tracking-[0.2em] text-white/50 mb-3">DELIVERABLES</div>
+                    <ul className="grid sm:grid-cols-2 gap-2">
+                      {active.deliverables.map((d) => (
+                        <li key={d} className="flex items-center gap-2 text-sm text-white/85">
+                          <CheckCircle2 className="size-4 text-[oklch(0.78_0.18_150)] shrink-0" />
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <aside className="space-y-3 animate-fade-in">
+                  <div className="rounded-2xl bg-white/5 border border-white/10 p-4 flex items-center gap-3">
+                    <Briefcase className="size-4 text-white/60" />
+                    <div className="text-xs"><div className="text-white/50">Client</div><div className="text-white font-medium">{active.client}</div></div>
+                  </div>
+                  <div className="rounded-2xl bg-white/5 border border-white/10 p-4 flex items-center gap-3">
+                    <Scissors className="size-4 text-white/60" />
+                    <div className="text-xs"><div className="text-white/50">Role</div><div className="text-white font-medium">{active.role}</div></div>
+                  </div>
+                  <div className="rounded-2xl bg-white/5 border border-white/10 p-4 flex items-center gap-3">
+                    <Timer className="size-4 text-white/60" />
+                    <div className="text-xs"><div className="text-white/50">Runtime</div><div className="text-white font-medium">{active.duration}</div></div>
+                  </div>
+                  <div className="rounded-2xl bg-white/5 border border-white/10 p-4">
+                    <div className="text-[10px] tracking-[0.2em] text-white/50 mb-2">TOOLS</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {active.tools.map((t) => (
+                        <span key={t} className="text-[11px] rounded-full bg-white/10 border border-white/10 text-white/85 px-2.5 py-1">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <a
+                    href={`https://youtu.be/${active.id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="pill-btn w-full justify-center bg-white text-[oklch(0.32_0.22_268)] hover:bg-white/90 text-sm"
+                  >
+                    Watch on YouTube <ArrowUpRight className="size-4" />
+                  </a>
+                </aside>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
