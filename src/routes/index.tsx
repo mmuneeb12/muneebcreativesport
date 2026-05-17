@@ -418,54 +418,111 @@ function Portfolio() {
         )}
       </div>
 
-      {/* Lightbox */}
+      {/* Case Study Modal */}
       <div
-        className={`fixed inset-0 z-[80] grid place-items-center p-4 md:p-10 transition-all duration-300 ${
+        className={`fixed inset-0 z-[80] grid place-items-center p-3 md:p-8 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           active ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setActive(null)}
+        aria-hidden={!active}
       >
-        <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+        <div className={`absolute inset-0 bg-black/85 backdrop-blur-xl transition-opacity duration-500 ${active ? "opacity-100" : "opacity-0"}`} />
         <div
-          className={`relative w-full max-w-6xl transition-all duration-500 ${active ? "scale-100 translate-y-0" : "scale-95 translate-y-4"}`}
+          className={`relative w-full max-w-6xl max-h-[92vh] overflow-y-auto transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            active ? "scale-100 translate-y-0 opacity-100" : "scale-[0.96] translate-y-6 opacity-0"
+          }`}
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={() => setActive(null)}
-            className="absolute -top-12 right-0 size-10 rounded-full glass grid place-items-center text-white hover:bg-white/20 cursor-pointer"
-            aria-label="Close"
+            className="absolute top-3 right-3 md:-top-12 md:right-0 z-10 size-10 rounded-full bg-white/10 backdrop-blur border border-white/15 grid place-items-center text-white hover:bg-white/20 hover:rotate-90 transition duration-300 cursor-pointer"
+            aria-label="Close case study"
           >
             <X className="size-5" />
           </button>
-          <div className={`rounded-3xl overflow-hidden ${active?.glow ?? ""}`}>
-            <div className="aspect-video bg-black">
-              {active && (
+
+          {active && (
+            <div className={`rounded-3xl overflow-hidden ${active.glow} bg-[oklch(0.14_0.05_268)]`}>
+              {/* Video Preview */}
+              <div className="relative aspect-video bg-black">
                 <iframe
+                  key={active.id + active.title}
                   className="w-full h-full"
                   src={`https://www.youtube.com/embed/${active.id}?autoplay=1&rel=0&modestbranding=1`}
                   title={active.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
-              )}
-            </div>
-            {active && (
-              <div className="p-5 md:p-6 flex items-center justify-between gap-4 bg-black/40 backdrop-blur">
-                <div>
-                  <div className="text-[10px] tracking-[0.18em] text-white/50">{active.tag}</div>
-                  <h3 className="font-display text-2xl md:text-3xl text-white mt-1">{active.title}</h3>
-                </div>
-                <a
-                  href={`https://youtu.be/${active.id}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="pill-btn bg-white text-[oklch(0.32_0.22_268)] hover:bg-white/90 text-sm"
-                >
-                  Open on YouTube <ArrowUpRight className="size-4" />
-                </a>
               </div>
-            )}
-          </div>
+
+              {/* Case Study Body */}
+              <div className="p-6 md:p-10 grid md:grid-cols-3 gap-8 bg-gradient-to-b from-black/40 to-black/10">
+                <div className="md:col-span-2 space-y-6 animate-fade-in">
+                  <div>
+                    <div className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-white/50">
+                      <span>{active.tag}</span>
+                      <span className="size-1 rounded-full bg-white/30" />
+                      <span>{active.year}</span>
+                    </div>
+                    <h3 className="font-display text-3xl md:text-5xl text-white mt-3 leading-[1.05]">{active.title}</h3>
+                    <p className="mt-4 text-white/75 text-sm md:text-base leading-relaxed max-w-2xl">{active.summary}</p>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-3">
+                    {active.highlights.map((h) => (
+                      <div key={h.label} className="rounded-2xl bg-white/5 border border-white/10 p-4 backdrop-blur">
+                        <div className="font-grotesk text-xl md:text-2xl font-bold text-white">{h.value}</div>
+                        <div className="text-[10px] uppercase tracking-wider text-white/50 mt-1">{h.label}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div>
+                    <div className="text-[10px] tracking-[0.2em] text-white/50 mb-3">DELIVERABLES</div>
+                    <ul className="grid sm:grid-cols-2 gap-2">
+                      {active.deliverables.map((d) => (
+                        <li key={d} className="flex items-center gap-2 text-sm text-white/85">
+                          <CheckCircle2 className="size-4 text-[oklch(0.78_0.18_150)] shrink-0" />
+                          {d}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <aside className="space-y-3 animate-fade-in">
+                  <div className="rounded-2xl bg-white/5 border border-white/10 p-4 flex items-center gap-3">
+                    <Briefcase className="size-4 text-white/60" />
+                    <div className="text-xs"><div className="text-white/50">Client</div><div className="text-white font-medium">{active.client}</div></div>
+                  </div>
+                  <div className="rounded-2xl bg-white/5 border border-white/10 p-4 flex items-center gap-3">
+                    <Scissors className="size-4 text-white/60" />
+                    <div className="text-xs"><div className="text-white/50">Role</div><div className="text-white font-medium">{active.role}</div></div>
+                  </div>
+                  <div className="rounded-2xl bg-white/5 border border-white/10 p-4 flex items-center gap-3">
+                    <Timer className="size-4 text-white/60" />
+                    <div className="text-xs"><div className="text-white/50">Runtime</div><div className="text-white font-medium">{active.duration}</div></div>
+                  </div>
+                  <div className="rounded-2xl bg-white/5 border border-white/10 p-4">
+                    <div className="text-[10px] tracking-[0.2em] text-white/50 mb-2">TOOLS</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {active.tools.map((t) => (
+                        <span key={t} className="text-[11px] rounded-full bg-white/10 border border-white/10 text-white/85 px-2.5 py-1">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <a
+                    href={`https://youtu.be/${active.id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="pill-btn w-full justify-center bg-white text-[oklch(0.32_0.22_268)] hover:bg-white/90 text-sm"
+                  >
+                    Watch on YouTube <ArrowUpRight className="size-4" />
+                  </a>
+                </aside>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
